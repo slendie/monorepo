@@ -1,13 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ComposerSettings">
-    <execution />
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;
+  <component name="ChangeListManager">
+    <list default="true" id="ea0a8045-3e99-4094-9e7f-bf231b45c259" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/controllers.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/controllers.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/errors.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/errors.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/middleware.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/middleware.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/requests-responses.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/requests-responses.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/routing.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/routing.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/sessions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/sessions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/resources/views/errors/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Contracts/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Foundation/Application.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Foundation/Application.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/HandleExceptions.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/HandleExceptions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/RegisterProviders.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/RegisterProviders.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Foundation/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Foundation/Exceptions/Handler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Http/Middleware/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Routing/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Session/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/src/Support/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Support/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/tests/Unit/Foundation/ApplicationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/tests/Unit/Foundation/ApplicationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skeleton/config/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/skeleton/routes/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/core-03-backlog.md" beforeDir="false" afterPath="$PROJECT_DIR$/specs/core-03-backlog.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/specs/core-04-02-http-routing.md" beforeDir="false" afterPath="$PROJECT_DIR$/specs/core-04-02-http-routing.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/skeleton/composer.json" />
+      <option value="$PROJECT_DIR$/packages/react-admin/composer.json" />
+      <option value="$PROJECT_DIR$/framework/composer.json" />
+      <option value="$PROJECT_DIR$/packages/auth/composer.json" />
+    </option>
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <execution />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="$PROJECT_DIR$/../../../../laragon/bin/php/php-8.3.6-Win32-vs16-x64/php.exe">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/laravel/pint" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php85" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/fidry/cpu-core-counter" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/termwind" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin-profanity" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin-mutate" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin-arch" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/brianium/paratest" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest" />
+      <path value="$PROJECT_DIR$/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/vendor/ta-tikoma/phpunit-architecture-test" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/vendor/jean85/pretty-package-versions" />
+      <path value="$PROJECT_DIR$/vendor/staabm/side-effects-detector" />
+    </include_path>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3KWVXMumIDP9Vb7VAMXRAQheSLH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "feature/v4",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editing.templates",
+    "to.speed.mode.migration.done": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
       <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
@@ -18,14 +153,27 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-PS-262.10315.130" />
+        <option value="bundled-php-predefined-a98d8de5180a-9522f28f0b20-com.jetbrains.php.sharedIndexes-PS-262.10315.130" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="ea0a8045-3e99-4094-9e7f-bf231b45c259" name="Changes" comment="" />
       <created>1767831190693</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1767831190693</updated>
       <workItem from="1767831192311" duration="54000" />
+      <workItem from="1791673350481" duration="1204000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
