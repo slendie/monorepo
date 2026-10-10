@@ -1,49 +1,41 @@
 {
-    "name": "slendie/slendie",
-    "description": "Starter kit para pequenos projetos em PHP",
+    "name": "slendie/monorepo",
+    "description": "Monorepo de desenvolvimento da Slendie v4 (framework, skeleton e packages). Não publicar.",
     "type": "project",
     "license": "MIT",
-    "keywords": ["framework", "mvc", "php", "starter", "template"],
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Luciano Closs",
-            "email": "lcloss@gmail.com"
-        }
-    ],
-    "scripts": {
-        "test": "php run-tests.php",
-        "install": "php scripts/install.php",
-        "migrate": "php scripts/migrate.php",
-        "migrate:status": "php scripts/migrate.php status",
-        "migrate:rollback": "php scripts/migrate.php rollback",
-        "migrate:reset": "php scripts/migrate.php reset",
-        "post-create-project-cmd": [
-            "@php -r \"copy('.env.example', '.env');\"",
-            "@php scripts/install.php"
-        ]
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        },
-        "sort-packages": true
-    },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
+    "repositories": [
+        { "type": "path", "url": "framework", "options": { "symlink": true } },
+        { "type": "path", "url": "skeleton", "options": { "symlink": true } },
+        { "type": "path", "url": "packages/*", "options": { "symlink": true } }
+    ],
     "require": {
-        "php": ">=8.4",
-        "vlucas/phpdotenv": "^5.6",
-        "phpmailer/phpmailer": "^7.0",
-        "slendie/framework": "^3.0"
+        "php": "^8.5",
+        "slendie/framework": "@dev"
     },
     "require-dev": {
-        "laravel/pint": "^1.26",
-        "pestphp/pest": "^2.0",
-        "phpstan/phpstan": "^2.1"
+        "pestphp/pest": "^4.0",
+        "phpstan/phpstan": "^2.1",
+        "laravel/pint": "^1.26"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Slendie\\Tests\\": "framework/tests/"
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "test:coverage": "pest --coverage --min=80",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "lint": "pint --test",
+        "fix": "pint",
+        "check": ["@lint", "@analyse", "@test"]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }

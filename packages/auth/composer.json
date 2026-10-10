@@ -1,0 +1,28 @@
+{
+    "name": "slendie/auth",
+    "description": "Autenticação para a Slendie: login por sessão, remember-me, tokens de API, middlewares auth/guest, @auth/@guest.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["slendie", "auth", "authentication", "login", "tokens"],
+    "authors": [
+        { "name": "Luciano Closs", "email": "lcloss@gmail.com" }
+    ],
+    "require": {
+        "php": "^8.5",
+        "slendie/framework": "^4.0"
+    },
+    "autoload": {
+        "psr-4": { "Slendie\\Auth\\": "src/" },
+        "files": ["src/helpers.php"]
+    },
+    "autoload-dev": {
+        "psr-4": { "Slendie\\Auth\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "slendie": {
+            "providers": ["Slendie\\Auth\\AuthServiceProvider"]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

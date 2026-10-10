@@ -1,18 +1,10 @@
 parameters:
-    level: 5
+    level: 8
     paths:
-        - app
-        - src
-        - tests
+        - framework/src
+        - packages/auth/src
+        - packages/react-admin/src
     excludePaths:
-        - src/legacy/*
-
-    ignoreErrors:
-        # Adicione erros específicos que deseja ignorar
-
+        - framework/stubs
     treatPhpDocTypesAsCertain: false
-
-    bootstrapFiles:
-        - config/constants.php
-
-
+    reportUnmatchedIgnoredErrors: true

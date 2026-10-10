@@ -1,46 +1,31 @@
-# Dependencies
-node_modules/
-vendor/
-
-# Build assets
-public/assets/
-
-# Environment
-.env
-.env.local
-.env.development.local
-.env.test
-.env.test.local
-.env.production.local
-.env.development
-.env.production
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# OS
+/vendor/
+/composer.lock
+/.phpunit.cache/
+/.phpunit.result.cache
+/coverage/
+/node_modules/
+/.idea/
+/.vscode/
 .DS_Store
 Thumbs.db
 
-# Database
-*.sqlite
-*.sqlite3
-*.db
+# por package
+framework/vendor/
+framework/composer.lock
+skeleton/vendor/
+skeleton/composer.lock
+skeleton/.env
+skeleton/database/*.sqlite
+skeleton/storage/framework/views/*.php
+skeleton/storage/framework/sessions/*
+skeleton/storage/logs/*.log
+skeleton/bootstrap/cache/*.php
+skeleton/public/build/
+skeleton/public/hot
+packages/*/vendor/
+packages/*/composer.lock
+packages/*/node_modules/
 
-# Framework packages
-packages/
-
-# Logs
-*.log
-logs/
-
-# Cache
-cache/
-tmp/
-
-# Tests databases
-test*.sqlite
+# sessão de IA
+.claude/
+.cursor/
