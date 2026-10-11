@@ -156,16 +156,20 @@ A view incluída recebe todas as variáveis da view pai mais as passadas.
     {{ isto não é processado }}
 @endverbatim
 
-@once … @endonce                        {{-- renderiza uma vez por pedido --}}
+@once … @endonce                        {{-- renderiza uma vez por render (view de topo) --}}
 @inject('metrics', 'App\Services\Metrics')
 @dd($x)  @dump($x)
 
-@vite(['resources/js/app.js'])          {{-- ver vite.md --}}
-@viteReactRefresh
+@vite(['resources/js/app.js'])          {{-- ver vite.md; até à peça 09 o helper vite() devolve '' --}}
+@viteReactRefresh                       {{-- peça 09 --}}
 ```
 
-CSS e JS dentro das views não são afectados: `@media`, `@import`, `@font-face`, `@keyframes`, `@supports`,
-`@tailwind`, `@apply`, `@layer` passam intactos. Para outro `@palavra` literal usa `@@palavra`.
+CSS e JS dentro das views não são afectados: `@media`, `@import`, `@font-face`, `@keyframes`, `@supports`, `@charset`, `@page`,
+`@container`, `@property`, `@layer`, `@tailwind`, `@apply`, `@theme`, `@utility`, `@source`, `@variant`, `@plugin`, `@config`
+e `@reference` passam intactos. Para outro `@palavra` literal (por exemplo `@click` do Alpine/Vue) usa `@@click`.
+
+Uma directiva só é reconhecida quando o `@` não está colado a uma letra ou número (`a@b.pt` e `logo@2x.png` ficam como estão);
+por isso `texto@endif` não compila: separa as directivas do texto com um espaço, uma quebra de linha ou uma tag.
 
 ## Com `slendie/auth`
 

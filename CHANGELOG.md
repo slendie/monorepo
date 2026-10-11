@@ -14,3 +14,15 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   binding e fallback, `Pipeline`, `Kernel`, sessão por ficheiro, middlewares (sessão, CSRF, trim, headers de segurança, CORS),
   `Handler` com páginas 404/405/419/500 e página de debug, `UrlGenerator`, facades `Route`/`URL`/`Response`/`Session`,
   helpers HTTP e skeleton mínimo (`public/index.php`, `bootstrap/app.php`).
+- Peça 03 — views e Blade compilado: `View\Factory`, `Finder` (paths, namespaces `pkg::view`), `View`, `Engine` e `BladeCompiler`
+  (`.blade.php` → PHP em `storage/framework/views`, cache por mtime e, em debug, por hash do conteúdo; PHP compilado com as
+  mesmas linhas do template, por isso os erros apontam para a linha original), directivas de layouts, condicionais, ciclos com
+  `$loop`, formulários, `@json`, `@class`, `@once`, stacks e directivas personalizadas, `CompileException` com linha para
+  directivas desconhecidas, `ViewException`/`ViewNotFoundException`, `ViewErrorBag` (`$errors`), helper `view()`, facades
+  `View`/`Blade`, páginas de erro e de debug convertidas para Blade (`errors::`, com override pelo projecto) e skeleton com
+  `layouts/app` + `home` em `/`.
+
+### Changed
+- `Router::toResponse()` renderiza as views dentro do pipeline (excepções e `abort()` em views passam pelo `Handler`; `old()`/flash
+  funcionam durante o render).
+- `Contracts\ViewFactory` ganha `exists()`; `ShareErrorsFromSession` partilha um `ViewErrorBag`.

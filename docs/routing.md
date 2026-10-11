@@ -166,7 +166,7 @@ Na CLI: `php slendie route:list` (peça de consola).
 | Devolve | Resposta |
 |---|---|
 | `Response` (ou subclasse) | tal e qual |
-| `Renderable` (a `View` do motor de views) | HTML 200 (`ViewResponse`, renderizada no envio) |
+| `Renderable` (a `View` do motor de views) | HTML 200 (`ViewResponse`, renderizada dentro do pipeline) |
 | `string`, `Stringable` | 200 com o texto |
 | `array`, `JsonSerializable`, `Arrayable` | JSON 200 |
 | `RedirectResponse` (`redirect(...)`) | 302 |

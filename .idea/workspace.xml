@@ -6,28 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ea0a8045-3e99-4094-9e7f-bf231b45c259" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/controllers.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/controllers.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/errors.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/errors.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/middleware.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/middleware.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/requests-responses.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/requests-responses.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/routing.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/routing.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/sessions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/sessions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/resources/views/errors/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Contracts/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Foundation/Application.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Foundation/Application.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/HandleExceptions.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/HandleExceptions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/RegisterProviders.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/RegisterProviders.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Foundation/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Foundation/Exceptions/Handler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Http/Middleware/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Routing/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Session/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/src/Support/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/src/Support/helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/tests/Unit/Foundation/ApplicationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/tests/Unit/Foundation/ApplicationTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skeleton/config/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/skeleton/routes/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/core-03-backlog.md" beforeDir="false" afterPath="$PROJECT_DIR$/specs/core-03-backlog.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specs/core-04-02-http-routing.md" beforeDir="false" afterPath="$PROJECT_DIR$/specs/core-04-02-http-routing.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +110,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/v4",
+    "git-widget-placeholder": "feature/v4-http-routing",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -169,7 +147,7 @@
       <option name="presentableId" value="Default" />
       <updated>1767831190693</updated>
       <workItem from="1767831192311" duration="54000" />
-      <workItem from="1791673350481" duration="1204000" />
+      <workItem from="1791673350481" duration="2368000" />
     </task>
     <servers />
   </component>

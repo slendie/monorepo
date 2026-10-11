@@ -9,12 +9,14 @@ Com `APP_DEBUG=true`: página de debug com a classe da excepção, mensagem, `fi
 stack trace, dados do pedido e ambiente (`.env`) sanitizado — chaves que contenham `KEY`, `SECRET`, `PASSWORD`, `TOKEN` ou
 `CREDENTIAL` aparecem como `••••`, tal como os headers `Authorization`/`Cookie` e campos `password` do pedido.
 
-Com `APP_DEBUG=false`: `resources/views/errors/{status}.php` se existir no projecto; senão a página da framework
+Com `APP_DEBUG=false`: `resources/views/errors/{status}.blade.php` se existir no projecto; senão a página da framework
 (`404`, `403`, `419`, `500`, ou `generic` para os outros estados). Pedidos que esperam JSON (`Accept: application/json`,
 XHR ou rota `/api/*`) recebem `{"message": "..."}`; em erros 500 sem debug a mensagem é `Server Error`.
 
-> Nesta fase as páginas são templates PHP puros (`.php`, variáveis `$status`, `$title`, `$message`). Com o motor de views
-> (peça 03) passam a `.blade.php`.
+> As páginas são views Blade no namespace `errors::` (`errors::404`, `errors::generic`, `errors::debug`, e o layout `errors::layout`)
+> com as variáveis `$status`, `$title` e `$message`. O projecto sobrepõe qualquer uma criando
+> `resources/views/errors/{nome}.blade.php` (que pode estender `errors::layout`). Se a própria renderização da página falhar,
+> o Handler cai para um HTML mínimo em vez de causar outro erro.
 
 | Situação | Status |
 |---|---|
