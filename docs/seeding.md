@@ -40,3 +40,26 @@ Não há *factories* nem Faker na Slendie. Para dados aleatórios usa `Str::rand
 `fakerphp/faker` como dependência de desenvolvimento do teu projecto.
 
 Em testes: `$this->seed()` ou `$this->seed(LeadSeeder::class)`, ou `protected bool $seed = true` com `RefreshDatabase`.
+
+## Injecção de dependências e encadeamento
+
+O `run()` não tem parâmetros declarados na classe base: pede o que precisares e o container injecta
+(tipos resolvíveis ou com valor por omissão).
+
+```php
+final class LeadSeeder extends Seeder
+{
+    public function run(Connection $db, int $count = 3): void
+    {
+        for ($i = 1; $i <= $count; $i++) {
+            $db->table('leads')->insert(['name' => "Lead {$i}", 'email' => "lead{$i}@exemplo.pt"]);
+        }
+    }
+}
+
+$this->call(LeadSeeder::class);                        // ou call([A::class, B::class]) — por esta ordem
+$this->callWith(LeadSeeder::class, ['count' => 10]);   // parâmetros nomeados para o run()
+```
+
+`call()` só aceita subclasses de `Seeder` e cria cada uma através do container (`Container::make`). Um seeder sem
+`run()` lança `LogicException`. No skeleton, `database/seeders/DatabaseSeeder.php` chama `LeadSeeder` (3 leads de exemplo).
