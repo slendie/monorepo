@@ -4,7 +4,7 @@ Drivers: **SQLite** (default), **MySQL/MariaDB**, **PostgreSQL**. Configuração
 
 ```
 DB_CONNECTION=sqlite            # mysql | pgsql
-DB_DATABASE=database/database.sqlite
+DB_DATABASE=database.sqlite     # SQLite: caminho absoluto, relativo a database/ ou :memory:
 ```
 
 ## Queries directas
@@ -62,8 +62,12 @@ Lead::on('reporting')->count();
 ```php
 DB::enableQueryLog();
 // ...
-DB::getQueryLog();                        // [['sql' => ..., 'bindings' => [...], 'time' => 1.2], ...]
-DB::listen(fn ($query) => Log::debug($query->sql, $query->bindings));
+DB::getQueryLog();                        // [['sql' => ..., 'bindings' => [...], 'time_ms' => 1.2], ...]
+DB::flushQueryLog();  DB::disableQueryLog();
+DB::listen(fn (string $sql, array $bindings, float $ms) => logger()->debug($sql));
+
+// Ver as queries sem as executar (útil para `migrate --pretend`):
+$queries = DB::pretend(fn () => DB::table('leads')->where('id', 1)->delete());
 ```
 
 ## Erros
@@ -72,6 +76,23 @@ DB::listen(fn ($query) => Log::debug($query->sql, $query->bindings));
 
 ## Notas por driver
 
-- **SQLite**: `foreign_key_constraints => true` activa `PRAGMA foreign_keys`. Ficheiro criado automaticamente pelo `migrate`.
+- **SQLite**: `foreign_key_constraints => true` activa `PRAGMA foreign_keys`; `busy_timeout` e `journal_mode` (`wal`) são opcionais. O ficheiro é criado na primeira ligação (a pasta tem de existir); `:memory:` serve para testes.
 - **MySQL**: `strict => true` activa `sql_mode` estrito; `utf8mb4_unicode_ci`.
 - **PostgreSQL**: `search_path`; `insertGetId` usa `RETURNING`.
+- A ligação é preguiçosa: o PDO só é criado na primeira query.
+- Drivers de packages: `DB::extend('driver', fn (array $config, string $name) => new Connection(...))`.
+
+## Correr os testes em MySQL e PostgreSQL
+
+Por omissão os testes de integração correm em SQLite `:memory:`. Para os correr também em MySQL/PostgreSQL define as variáveis abaixo — **apontam para uma base de dados descartável**: os testes fazem `DROP TABLE leads, notes`.
+
+```
+DB_TEST_MYSQL_DSN="mysql:host=127.0.0.1;dbname=slendie_test;charset=utf8mb4"
+DB_TEST_MYSQL_USER=root
+DB_TEST_MYSQL_PASSWORD=
+DB_TEST_PGSQL_DSN="pgsql:host=127.0.0.1;dbname=slendie_test"
+DB_TEST_PGSQL_USER=postgres
+DB_TEST_PGSQL_PASSWORD=
+```
+
+Sem as variáveis, esses testes ficam *skipped* com uma mensagem.

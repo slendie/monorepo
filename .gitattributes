@@ -1,0 +1,20 @@
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+
+# Excluídos dos zips do Composer (aplica-se aos repositórios espelho após o split)
+/tests export-ignore
+/specs export-ignore
+/docs export-ignore
+/.github export-ignore
+/.gitattributes export-ignore
+/.editorconfig export-ignore
+/phpunit.xml export-ignore
+/phpstan.neon export-ignore
+/pint.json export-ignore

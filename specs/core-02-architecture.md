@@ -24,6 +24,12 @@ Tudo o resto é package.
 Durante o desenvolvimento, o `composer.json` da raiz do monorepo liga tudo por `path` repositories. Na publicação,
 cada pasta é um repositório Git próprio (split por `git subtree` ou GitHub Action `splitsh`).
 
+**Repositórios GitHub (decisão):** o monorepo de desenvolvimento passa a chamar-se `slendie/monorepo` (renomear o
+actual `slendie/slendie`, que mantém o histórico v1–v3 e as tags; o GitHub redirecciona o URL antigo). Os
+repositórios espelho, só de leitura e gerados por split, são: `slendie/framework` (`framework/`), `slendie/slendie`
+(`skeleton/`, novo repositório limpo), `slendie/auth` (`packages/auth/`) e `slendie/react-admin`
+(`packages/react-admin/`). Nunca se faz commit directo nos espelhos.
+
 Versionamento: SemVer. `slendie/framework` e `slendie/slendie` partilham o major (4.x). Packages seguem o seu próprio
 ciclo mas declaram `"slendie/framework": "^4.0"`.
 
@@ -32,7 +38,7 @@ ciclo mas declaram `"slendie/framework": "^4.0"`.
 ### 3.1 Monorepo (este repositório)
 
 ```
-slendie-v4/
+monorepo/                      # github.com/slendie/monorepo
 ├── composer.json              # dev-only: path repos para framework/, skeleton/, packages/*; scripts test/lint/analyse
 ├── README.md
 ├── .gitignore  .editorconfig  .github/workflows/ci.yml

@@ -6,7 +6,7 @@ use Slendie\Support\Facades\DB;
 DB::table('leads')->where('status', 'new')->orderBy('created_at', 'desc')->limit(10)->get();
 ```
 
-Todos os valores vão por *prepared statements*. Nomes de tabelas/colunas são validados (`[A-Za-z_][A-Za-z0-9_.]*`).
+Todos os valores vão por *prepared statements*. Nomes de tabelas/colunas são validados (`tabela.coluna` e `x as y`, só letras, números e `_`; qualquer outra coisa lança `InvalidArgumentException`) e os operadores só podem ser `= < > <= >= <> != like, not like, ilike, in, not in, is, is not, between`. SQL cru só através de `DB::raw()` / `*Raw()`.
 
 ## Obter resultados
 
@@ -22,7 +22,7 @@ Todos os valores vão por *prepared statements*. Nomes de tabelas/colunas são v
 ->paginate(15)     ->simplePaginate(15)
 ->chunk(100, fn ($rows) => ...)
 ->cursor()                            // Generator, linha a linha
-->toSql()  ->getBindings()  ->dd()
+->toSql()  ->getBindings()  ->toRawSql()  ->dump()  ->dd()   // toRawSql: valores interpolados, só para debug
 ```
 
 `fetch()`/`fetchAll()` e `first()`/`get()` são sinónimos: usa os que te forem naturais.
@@ -44,6 +44,7 @@ Todos os valores vão por *prepared statements*. Nomes de tabelas/colunas são v
 ->orWhere('x', 1)  ->whereNot('x', 1)
 ->whereLike('name', 'silva')               // LIKE '%silva%' (case-insensitive; % automático se não houver wildcards)
 ->whereLike('name', 'sil%')                // usa o teu padrão
+->whereLike('name', 'Sil%', true)          // sensível a maiúsculas (PostgreSQL: LIKE; MySQL: LIKE BINARY; SQLite: GLOB)
 ->orWhereLike(...)  ->whereNotLike(...)
 ->whereIn('id', [1, 2])  ->whereNotIn(...)
 ->whereNull('phone')  ->whereNotNull('phone')
@@ -66,13 +67,15 @@ Todos os valores vão por *prepared statements*. Nomes de tabelas/colunas são v
 ->limit(10)->offset(20)  ->take(10)->skip(20)  ->forPage(3, 20)
 ```
 
+`update()`/`delete()` não aceitam joins; usa `whereIn()`/`whereExists()`. `chunk()` pagina por offset: não alteres durante o chunk as colunas usadas no `where`.
+
 ## Escrever
 
 ```php
 ->insert(['name' => 'Ana'])  ->insert([[...], [...]])
 ->insertGetId([...])
 ->insertOrIgnore([...])
-->where('id', 1)->update(['status' => 'won'])
+->where('id', 1)->update(['status' => 'won'])           // devolve as linhas afectadas
 ->updateOrInsert(['email' => $e], ['name' => 'Ana'])
 ->increment('visits')  ->decrement('stock', 2)
 ->where('id', 1)->delete()  ->delete(1)
@@ -100,7 +103,9 @@ $leads->nextPageUrl();  $leads->appends(['q' => 'x']);
 {!! $leads->links() !!}
 ```
 
-Em JSON (`return $leads;`): `{data, total, per_page, current_page, last_page, from, to}`.
+Em JSON (`return $leads;`): `{data, total, per_page, current_page, last_page, from, to, next_page_url, prev_page_url}`. O `SimplePaginator` (`simplePaginate()`) não conta o total.
+
+`links()` usa as views `pagination::default` e `pagination::simple` (podes passar a tua: `$leads->links('partials.pager')`); a página e a query string vêm do pedido actual, e `->withPath('/leads')` / `->fragment('lista')` ajustam os URLs.
 
 ## Fora de âmbito
 `union`, subqueries em `select`/`from`, `lockForUpdate`, `upsert`, full-text, JSON where (`->`).

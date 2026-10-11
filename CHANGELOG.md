@@ -21,6 +21,11 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   directivas desconhecidas, `ViewException`/`ViewNotFoundException`, `ViewErrorBag` (`$errors`), helper `view()`, facades
   `View`/`Blade`, páginas de erro e de debug convertidas para Blade (`errors::`, com override pelo projecto) e skeleton com
   `layouts/app` + `home` em `/`.
+- Peça 04 — base de dados: `DatabaseManager` (ligações nomeadas preguiçosas, `extend()`), `Connection` (PDO preguiçoso, prepared statements,
+  transacções com savepoints, query log, `listen()`, `pretend()`), `ConnectionFactory` (SQLite, MySQL/MariaDB, PostgreSQL), `Statement`,
+  Query Builder fluente com grammars por driver (identificadores e operadores validados), `Expression`, `JoinClause`, paginação
+  (`Paginator`, `SimplePaginator`, views `pagination::default|simple`), `QueryException` com dica de migração, `RecordNotFoundException`
+  (404 no `Handler`), facade `DB` e `config/database.php`.
 
 ### Changed
 - `Router::toResponse()` renderiza as views dentro do pipeline (excepções e `abort()` em views passam pelo `Handler`; `old()`/flash
