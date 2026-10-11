@@ -26,6 +26,11 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   Query Builder fluente com grammars por driver (identificadores e operadores validados), `Expression`, `JoinClause`, paginação
   (`Paginator`, `SimplePaginator`, views `pagination::default|simple`), `QueryException` com dica de migração, `RecordNotFoundException`
   (404 no `Handler`), facade `DB` e `config/database.php`.
+- Peça 05 — models: `Model` (atributos, casts, accessors/mutators, mass-assignment, dirty tracking, timestamps, eventos por classe,
+  `save/update/delete/refresh/fresh/replicate`, estáticos `create/find/findOrFail/all/destroy/…` e proxies para o Query Builder com
+  `fetch()/fetchAll()`), `Model\Builder` (scopes locais e globais, `paginate`, `chunk`, `cursor`, `firstOrCreate`, `updateOrCreate`),
+  `Collection`, relações lazy `hasOne/hasMany/belongsTo`, traits `SoftDeletes` e `HasUuids`, `ModelNotFoundException` (404) e
+  route-model binding completo (`{lead}` e `{post:slug}`).
 
 ### Changed
 - `Router::toResponse()` renderiza as views dentro do pipeline (excepções e `abort()` em views passam pelo `Handler`; `old()`/flash

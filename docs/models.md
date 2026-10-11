@@ -63,15 +63,25 @@ $lead->isDirty('status');  $lead->getOriginal('status');  $lead->wasChanged();
 $lead->exists;  $lead->wasRecentlyCreated;
 ```
 
-Mass-assignment: chaves fora de `$fillable` lançam `MassAssignmentException` em debug e são descartadas em produção.
-`forceFill()` ignora a protecção.
+Mass-assignment: chaves fora de `$fillable` lançam `MassAssignmentException` em debug (`APP_DEBUG=true`) e são
+descartadas em produção; `Model::preventSilentlyDiscardingAttributes(true|false)` força um dos comportamentos.
+`forceFill()` e `Model::unguard()` ignoram a protecção. Com `$fillable = []` e `$guarded = ['*']` (o default) tudo fica
+bloqueado, como no Laravel.
+
+Escritas em massa (`Lead::where(...)->update([...])`, `->delete()`, `->restore()`) vão directas à base de dados:
+actualizam `updated_at`, mas **não** disparam eventos.
 
 ## Timestamps e casts
 
 `created_at`/`updated_at` automáticos (`$timestamps = false` para desligar).
 
 Casts: `int`, `float`, `string`, `bool`, `array`/`json`, `object`, `collection`, `date`, `datetime`, `timestamp`,
-`decimal:2`, enums (`Status::class`).
+`decimal:2`, enums (`Status::class`). `created_at`/`updated_at` são `datetime` por omissão. Um cast desconhecido
+(ex.: `encrypted`) lança `LogicException`.
+
+Em `toArray()`/JSON as datas saem como texto (`$dateFormat`, ou `Y-m-d` nos casts `date`), os enums como o seu valor.
+
+Os atributos são acedidos dinamicamente (`$lead->name`); as *property hooks* do PHP 8.5 não são usadas aqui.
 
 ## Accessors, mutators, appends
 
@@ -113,7 +123,10 @@ $lead->user()->associate($user)->save();
 $lead->load('notes');  $lead->relationLoaded('notes');
 ```
 
-**Sem eager loading** (`with()`): numa listagem, evita N+1 fazendo `User::whereIn('id', $leads->pluck('user_id'))->get()->keyBy('id')`.
+O método da relação tem de declarar o tipo de retorno (`HasMany`, `HasOne`, `BelongsTo`) — é assim que `$lead->notes`
+distingue relações de outros métodos. FK por convenção: `{snake(classe)}_id` (`Lead` → `lead_id`).
+
+**Sem eager loading** (`with()` lança `LogicException`; `$with` é ignorado): numa listagem, evita N+1 fazendo `User::whereIn('id', $leads->pluck('user_id'))->get()->keyBy('id')`.
 
 ## Eventos
 
@@ -135,6 +148,16 @@ Lead::withTrashed()->get();  Lead::onlyTrashed()->restore();  $lead->trashed(); 
 use Slendie\Model\HasUuids;      // chave primária uuid gerada em creating
 ```
 
+## Route-model binding
+
+```php
+Route::get('/leads/{lead}', fn (Lead $lead) => $lead);          // por chave primária (ou getRouteKeyName())
+Route::get('/posts/{post:slug}', fn (Post $post) => $post);     // por outro campo
+```
+
+Registo inexistente (ou apagado com SoftDeletes) → `ModelNotFoundException` → 404. `route('posts.show', ['post' => $post])`
+usa `getRouteKey()`.
+
 ## Serialização
 
 ```php
@@ -146,7 +169,11 @@ $lead->makeVisible('ip')->toArray();
 ## Collection
 
 `Lead::all()` devolve `Slendie\Model\Collection`: `map`, `filter`, `pluck`, `keyBy`, `groupBy`, `sortBy`, `first`,
-`where`, `contains`, `sum`, `isEmpty`, `toArray`, `toJson`, `each`, `chunk`, `load`, …
+`where`, `contains`, `sum`, `isEmpty`, `toArray`, `toJson`, `each`, `chunk`, `load`, `find`, `modelKeys`, `fresh`, …
+(`toJson()` aplica `$hidden`/`$visible` de cada model). Sem macros.
+
+Notas: `pluck()`/`value()` no builder do model devolvem valores em bruto (sem casts), e os closures de
+`where(fn ($q) => …)` recebem o Query Builder base.
 
 ## Diferenças para o Eloquent
 Sem `with()` (eager loading), `belongsToMany`, relações polimórficas, observers em classe, factories, `Attribute::make`,
