@@ -83,4 +83,19 @@ com prepared statements e grammars por driver. Sem Model (peça 05) nem Schema (
 Model (05), Schema/migrações (06), comandos (07), eager loading, locks, unions, subqueries em select (só `whereExists`).
 
 ## Desvios
-(preencher na implementação)
+Implementado em 2026-10-11 (700 testes no total, 70 skipped por falta de MySQL/PostgreSQL locais; PHPStan nível 8 e Pint verdes). Divergências face ao texto acima:
+
+1. **Query log e listeners** usam as chaves `sql`, `bindings`, `time_ms` e o listener recebe `(string $sql, array $bindings, float $timeMs)` (em vez de um objecto), como pede a lista do spec.
+2. **Config**: além de `skeleton/config/database.php`, existe `framework/config/database.php` igual, fundido pelo `DatabaseServiceProvider` (`mergeConfigFrom`), como já faz a sessão — o projecto sem `config/database.php` funciona com SQLite.
+3. **Namespace `pagination`** registado com `callAfterResolving(Factory::class, …)` em vez de `boot()` + `bound()`: resolver a `Factory` no `boot` fixava os caminhos de views antes de o projecto/testes ajustarem a config.
+4. **Paginação** ligada ao pedido pelo `DatabaseServiceProvider` (resolvers estáticos em `AbstractPaginator`: página, caminho e query string); fora de uma aplicação lê `$_GET`/`REQUEST_URI`. `Paginator`/`SimplePaginator` partilham `AbstractPaginator`; o `toArray()` acrescenta `next_page_url`/`prev_page_url`, e o `Paginator` tem `elements()` (janela de páginas) para as views.
+5. **`LIMIT`/`OFFSET` vão inlined como inteiros** (cast + `max(0)`), sem bindings. `OFFSET` sem `LIMIT` gera `limit -1` (SQLite) e `limit 18446744073709551615` (MySQL).
+6. **`whereLike` sensível a maiúsculas**: PostgreSQL `LIKE`, MySQL `LIKE BINARY`, SQLite `GLOB` (o padrão `%`/`_` é convertido para `*`/`?`). O insensível usa `LIKE` (SQLite/MySQL) e `ILIKE` (PostgreSQL); não há `LOWER()`.
+7. **`insert()` ordena as colunas** (`ksort`) e exige as mesmas colunas em todas as linhas; `insertOrIgnore()` devolve o nº de linhas inseridas. `update()`/`delete()` lançam se o builder tiver joins.
+8. **`truncate()` no SQLite** tolera a ausência de `sqlite_sequence` (só existe depois de uma tabela `AUTOINCREMENT`).
+9. **`aggregate()`/`count()` com `group by`, `having`, `limit` ou `offset`** usam uma subquery (`select count(*) from (…) as aggregate_table`).
+10. **Extras**: `Connection::cursor()`, `raw()`, `disconnect()`, `logging()`, `pretending()`, `DatabaseManager::getConnections()`, `Builder::toRawSql()`, `whereNotExists()`, `orHaving()`, `orWhereNot()`; ligações `mariadb` usam a grammar MySQL.
+11. **`RecordNotFoundException` → 404** no `Handler` (HTML e JSON), antecipando o que a peça 05 fará para `ModelNotFoundException`.
+12. **Parâmetros nomeados** (`['email' => $e]` com `:email`) são aceites além de `?`.
+13. **Testes de integração** correm em SQLite `:memory:`; MySQL/PostgreSQL só com `DB_TEST_MYSQL_DSN`/`DB_TEST_PGSQL_DSN` (+ `_USER`/`_PASSWORD`) e apontam para uma BD descartável (os testes fazem `DROP TABLE`). Nenhum servidor estava disponível, por isso o SQL dos dois drivers está coberto por testes de strings exactas, mas **não foi executado contra MySQL/PostgreSQL reais**.
+14. **Docs**: `docs/database.md` e `docs/query-builder.md` já existiam (rascunho) e foram corrigidos para reflectir a implementação.
