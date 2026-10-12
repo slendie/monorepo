@@ -18,7 +18,7 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   (`.blade.php` → PHP em `storage/framework/views`, cache por mtime e, em debug, por hash do conteúdo; PHP compilado com as
   mesmas linhas do template, por isso os erros apontam para a linha original), directivas de layouts, condicionais, ciclos com
   `$loop`, formulários, `@json`, `@class`, `@once`, stacks e directivas personalizadas, `CompileException` com linha para
-  directivas desconhecidas, `ViewException`/`ViewNotFoundException`, `ViewErrorBag` (`$errors`), helper `view()`, facades
+  directivas desconhecidas, `ViewException`/`ViewNotFoundException`, `$errors`, helper `view()`, facades
   `View`/`Blade`, páginas de erro e de debug convertidas para Blade (`errors::`, com override pelo projecto) e skeleton com
   `layouts/app` + `home` em `/`.
 - Peça 04 — base de dados: `DatabaseManager` (ligações nomeadas preguiçosas, `extend()`), `Connection` (PDO preguiçoso, prepared statements,
@@ -46,10 +46,18 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   `db:seed`, `db:wipe`, `make:controller|model|migration|middleware|provider|command|seeder|view`, `route:list`, `view:clear`,
   `key:generate`, `vendor:publish`, `about`, `env`, `list` e `help`. Script `skeleton/slendie`, `routes/console.php` e
   `bootstrap/providers.php` no skeleton; `docs/cli.md` e secção "Registar comandos" em `docs/packages.md`.
+- Peça 08 — validação e traduções: `Validator` com ~100 regras estilo Laravel (strings, arrays, objectos `Rule`, closures, wildcards
+  `items.*.qty`, `bail`, `sometimes`, `nullable`, `exclude*`, `after`, `stopOnFirstFailure`), `Rule::in/unique/exists/enum/requiredIf/when`,
+  `Password`, `Rule::file()`, `Factory` (`extend`) e facade `Validator`, `MessageBag`, `ValidatedInput` (`safe()`), `ValidationException`
+  (422 JSON ou redirect de volta com erros e `old()`), `FormRequest` injectável (`authorize`, `prepareForValidation`, `after`),
+  `Request::validate()/validator()`, `Translator` (fallback de locale, override pelo projecto, `choice`, namespaces de packages),
+  textos pt-PT e en, helpers `__`/`trans`/`trans_choice`/`validator`, `make:request`, `vendor:publish --tag=slendie-lang`,
+  `ContactController` no skeleton, `docs/validation.md` e `docs/localization.md`.
 
 ### Changed
 - `Router::toResponse()` renderiza as views dentro do pipeline (excepções e `abort()` em views passam pelo `Handler`; `old()`/flash
   funcionam durante o render).
-- `Contracts\ViewFactory` ganha `exists()`; `ShareErrorsFromSession` partilha um `ViewErrorBag`.
+- `Contracts\ViewFactory` ganha `exists()`; `ShareErrorsFromSession` partilha `$errors` como `Validation\MessageBag` (o `ViewErrorBag` desaparece).
+- `Request::validate()` devolve os dados validados; `RedirectResponse::withErrors()` aceita `MessageBag`, `Validator` ou array.
 - `Migrator::setOutput()` aceita `null` (deixa de emitir mensagens); `Foundation\Application` regista `Console\Application` como
   singleton e a `ConsoleServiceProvider` entre os providers da framework.

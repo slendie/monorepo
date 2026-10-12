@@ -23,5 +23,8 @@
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_DEBUG" value="true"/>
+        <env name="DB_TEST_MYSQL_DSN" value="mysql:host=localhost;port=3306;dbname=slendie_test;charset=utf8mb4"/>
+        <env name="DB_TEST_MYSQL_USER" value="root"/>
+        <env name="DB_TEST_MYSQL_PASSWORD" value="root"/>
     </php>
 </phpunit>

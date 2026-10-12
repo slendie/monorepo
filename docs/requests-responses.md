@@ -90,7 +90,7 @@ return redirect('/x')->with('success', 'Guardado!');          // flash
 ```
 
 `with()`, `withInput()` e `withErrors()` precisam de sessão (grupo `web`). `withInput()` ignora `password`,
-`password_confirmation` e `_token`. Em `withErrors()` aceita-se por agora um array (a `MessageBag` chega com a validação).
+`password_confirmation` e `_token`. `withErrors()` aceita um array, uma `MessageBag` ou um `Validator` (e um nome de bag como 2.º argumento).
 `redirect()->intended()` pertence ao package `slendie/auth`.
 
 ### Views
