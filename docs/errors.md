@@ -1,26 +1,40 @@
 # Erros e logging
 
+Toda a excepção lançada durante um pedido é apanhada pelo `Kernel`, registada (`Handler::report()`) e convertida numa
+`Response` (`Handler::render()`). Nada escapa para o PHP.
+
 ## Páginas de erro
 
-Com `APP_DEBUG=true`: página de debug com excepção, excerto de código, stack trace, request e `.env` sanitizado.
+Com `APP_DEBUG=true`: página de debug com a classe da excepção, mensagem, `ficheiro:linha`, excerto de código (±10 linhas),
+stack trace, dados do pedido e ambiente (`.env`) sanitizado — chaves que contenham `KEY`, `SECRET`, `PASSWORD`, `TOKEN` ou
+`CREDENTIAL` aparecem como `••••`, tal como os headers `Authorization`/`Cookie` e campos `password` do pedido.
 
-Com `APP_DEBUG=false`: `resources/views/errors/{404,403,419,422,500}.blade.php` se existirem no projecto; senão
-as páginas da framework. Pedidos que esperam JSON recebem `{"message": "..."}`.
+Com `APP_DEBUG=false`: `resources/views/errors/{status}.php` se existir no projecto; senão a página da framework
+(`404`, `403`, `419`, `500`, ou `generic` para os outros estados). Pedidos que esperam JSON (`Accept: application/json`,
+XHR ou rota `/api/*`) recebem `{"message": "..."}`; em erros 500 sem debug a mensagem é `Server Error`.
+
+> Nesta fase as páginas são templates PHP puros (`.php`, variáveis `$status`, `$title`, `$message`). Com o motor de views
+> (peça 03) passam a `.blade.php`.
 
 | Situação | Status |
 |---|---|
-| Rota não encontrada / `ModelNotFoundException` / `abort(404)` | 404 |
+| Rota não encontrada / `abort(404)` / route-model binding sem resultado | 404 |
 | Método não permitido | 405 + `Allow` |
 | Token CSRF inválido | 419 |
-| `ValidationException` | 422 (JSON) ou redirect |
+| `ValidationException` | 422 (JSON) ou redirect (peça 08) |
 | Qualquer outra excepção | 500 |
 
 ```php
 abort(404);
 abort(403, 'Sem acesso');
+abort(429, 'Calma', ['Retry-After' => '60']);
 abort_if($lead->user_id !== $user->id, 403);
-throw new HttpException(402, 'Pagamento necessário');
+abort_unless($user->isAdmin(), 403);
+throw new HttpException(402, 'Pagamento necessário');     // Slendie\Exceptions\HttpException
 ```
+
+Excepções disponíveis: `HttpException`, `NotFoundHttpException`, `MethodNotAllowedHttpException`, `TokenMismatchException`
+(todas com `getStatusCode()`/`getHeaders()`) e `UrlGenerationException`.
 
 ## Personalizar o Handler
 
@@ -28,13 +42,30 @@ Em `bootstrap/app.php`:
 
 ```php
 ->withExceptions(function (Handler $handler) {
-    $handler->dontReport([MyQuietException::class]);
-    $handler->report(fn (PaymentException $e) => Payments::notify($e));
-    $handler->render(fn (PaymentException $e, Request $request) => response()->view('errors.payment', [], 402));
+    $handler->dontReport([MyQuietException::class]);                   // não vai para o log
+    $handler->renderable(PaymentException::class, fn (PaymentException $e, Request $request) =>
+        response('Pagamento necessário', 402));                        // resposta própria por tipo
 })
 ```
 
+`HttpException` já não é registada no log por omissão. Um renderer que devolva algo que não seja `Response` é ignorado e
+o tratamento normal continua. Para alterações maiores, estende o `Handler` e regista-o:
+`$this->app->singleton(Slendie\Foundation\Exceptions\Handler::class, App\Exceptions\Handler::class)`.
+
+Excepções fora do `Kernel` (por exemplo em `public/index.php` antes do `handle`, ou na consola) passam pelo
+`HandleExceptions`: na web usam o mesmo `render()`; na CLI `renderForConsole()` escreve texto simples (com trace em debug).
+
 ## Logging
+
+Por agora o `Handler::report()` escreve em `storage/logs/slendie.log`:
+
+```
+[2026-10-10 14:03:22] local.ERROR: mensagem {"exception":"RuntimeException","file":"...","line":12}
+#0 /caminho/App.php(10): ...
+```
+
+O `Logger` completo — facade `Log`, canais (`single`, `daily`, `stderr`, `stack`, `null`), `logger()` e `report($e)` — chega
+com a peça de packages/logging (`core-04-09`). A configuração e a API abaixo descrevem o alvo final:
 
 ```php
 use Slendie\Support\Facades\Log;
@@ -60,7 +91,5 @@ Níveis: `emergency`, `alert`, `critical`, `error`, `warning`, `notice`, `info`,
     'null'   => ['driver' => 'null'],
 ],
 ```
-
-Formato: `[2026-10-10 14:03:22.123] local.ERROR: mensagem {"id":5}` seguido do trace quando há excepção.
 
 Packages podem adicionar drivers com `Log::extend('slack', fn ($config) => new SlackLogger($config))`.

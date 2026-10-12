@@ -8,7 +8,7 @@
 | # | Peça | Spec | Entrega | Depende de | Estado |
 |---|---|---|---|---|---|
 | 01 | Basement: monorepo, composer, Container, Application, Env, Config, ServiceProvider, helpers base, tooling (Pest/PHPStan/Pint/CI) | `core-04-01-basement.md` | `php -r` cria `Application`, resolve bindings; `composer test` verde | — | ✅ 2026-10-10 (64 testes, PHPStan 8, Pint) |
-| 02 | HTTP + Routing: Request, Response*, Session, Router, Route facade, Pipeline, Kernel, middlewares base (CSRF, StartSession, SecurityHeaders, Cors, TrimStrings), Controller, Exceptions/Handler, `public/index.php` | `core-04-02-http-routing.md` | pedido → resposta com rotas, grupos, params, spoofing, 404/405, debug page | 01 | ⬜ |
+| 02 | HTTP + Routing: Request, Response*, Session, Router, Route facade, Pipeline, Kernel, middlewares base (CSRF, StartSession, SecurityHeaders, Cors, TrimStrings), Controller, Exceptions/Handler, `public/index.php` | `core-04-02-http-routing.md` | pedido → resposta com rotas, grupos, params, spoofing, 404/405, debug page | 01 | ✅ 2026-10-11 (195 testes, PHPStan 8, Pint) |
 | 03 | Views: Factory, BladeCompiler, directivas, cache, `view()`, páginas de erro | `core-04-03-views-blade.md` | `view('home', [...])` com layouts e todas as directivas listadas | 01, 02 (ViewResponse) | ⬜ |
 | 04 | Database: DatabaseManager, Connection (3 drivers), Query Builder, Grammars, `query()->fetch()/fetchAll()`, paginate | `core-04-04-database-query.md` | builder gera SQL válido nos 3 drivers; testes em SQLite memória | 01 | ⬜ |
 | 05 | Model: Model base, Model\Builder, Collection, relações HasOne/HasMany/BelongsTo, route-model binding | `core-04-05-model.md` | `Lead::whereLike()->fetchAll()`, `save()`, casts, timestamps, binding em rotas | 02, 04 | ⬜ |

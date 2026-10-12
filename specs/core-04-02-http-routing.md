@@ -121,4 +121,39 @@ Router com parâmetros e DI, e sai como `Response`. 404/405 e página de debug f
 Blade (peça 03), validação (08), auth (package), rate limiting (fora), domínio em rotas (fora).
 
 ## Desvios
-(preencher na implementação)
+Implementado em 2026-10-11. Divergências face ao texto acima:
+
+1. **Sessão independente de `$_SESSION`.** `Session` guarda o id numa cookie e os dados num `SessionHandlerInterface`
+   (`FileSessionHandler`, `ArraySessionHandler` para testes); o `SessionServiceProvider` regista o handler como
+   `session.handler` em vez de chamar `session_set_save_handler`/`session_name`/`session_set_cookie_params`. Resultado:
+   testável em CLI e sem estado global. O `StartSession` grava no fim do `handle()` (`try/finally`) e não só no
+   `terminate()`, para o redirect seguinte nunca chegar antes dos dados; `terminate()` só grava se houver alterações.
+   Acrescentado `Session::isDirty()`, `decrement()`, `setId()` e a cookie `XSRF-TOKEN` (legível por JS) nas respostas `web`.
+2. **`Router`, `RouteCollection` e `Kernel` são singletons registados no construtor da `Application`**, não no
+   `RoutingServiceProvider`: o Kernel é resolvido antes do bootstrap e, se o Router fosse registado só no `register()`,
+   o Kernel ficaria com um Router diferente do das rotas. O provider regista `UrlGenerator`, `Redirector`,
+   `ResponseFactory`, o binding de `Request` e faz merge de `config/cors.php`.
+3. **Aliases de middleware são resolvidos pelo `Router`, não pelo `Pipeline`.** O `Pipeline` recebe `Classe[:p1,p2]`;
+   `Router::resolveMiddleware()` expande grupos e aliases. `SubstituteBindings` é sempre acrescentado no fim do
+   middleware de cada rota (em vez de constar dos grupos `web`/`api`).
+4. **`Router::resource()`/`apiResource()` usam o 3.º argumento `$options`** (`only`, `except`, `parameters`) e devolvem
+   `list<Route>`; não há `->only()` fluente. O nome aceita barras (`'/posts'`) e aninhamento (`posts.comments`).
+5. **`Controller::middleware()` aplica-se a todas as acções** (sem `->only()`/`->except()`). O controller é instanciado ao
+   reunir o middleware (antes do pipeline) e reutilizado na acção.
+6. **`VerifyCsrfToken::$except`** usa padrões sem `/` inicial (`webhooks/*`); não existe `validateCsrfTokens()` no Kernel,
+   exclui-se com subclasse ou `withoutMiddleware('csrf')`.
+7. **OPTIONS automático herda o middleware** das rotas com o mesmo caminho, para o preflight CORS passar pelo `HandleCors`.
+8. **`HandleCors` aplica-se só ao grupo `api`** como especificado, e só a caminhos de `cors.paths` (por omissão `api/*`).
+9. **Páginas de erro** são `resources/views/errors/{404,403,419,500,generic,debug}.php` (PHP puro), com override do projecto
+   em `resources/views/errors/{status}.php`; a peça 03 converte-as para Blade. `Handler::render()` aceita ainda renderers
+   por tipo (`renderable()`). `ValidationException` ainda não existe, pelo que não consta do `$dontReport`.
+10. **Contrato `Contracts/ViewFactory`** (`make()`, `share()`) acrescentado: é o que `Route::view()`, `response()->view()` e
+    `ShareErrorsFromSession` esperam do serviço `view`; a `View\Factory` da peça 03 implementa-o.
+11. **`Application::terminate(?Request, ?Response)`** delega no `Kernel::terminate()` quando recebe os dois; sem argumentos
+    só corre os callbacks `terminating()`. `withRouting/withMiddleware/withExceptions/withProviders` existem em
+    `Foundation\Configuration\ApplicationBuilder`, acessíveis também directamente na `Application`; `withRouting()` aceita
+    só `web:` e `api:`.
+12. **Helper `view()` não existe ainda** (peça 03); os helpers de HTTP estão todos em `Support/helpers.php`. `redirect()`
+    chama-se sem argumentos para obter o `Redirector`, e `url('x', [1, 2])` segue o Laravel (`$extra` = segmentos).
+13. **Verificado com `php -S`** sobre `skeleton/public` (via junction de `vendor`): `/` → `Slendie v4`, `/x` → 404,
+    `POST /` → 405 com `Allow`. Cobertura de código não medida (sem driver Xdebug/PCOV neste ambiente).

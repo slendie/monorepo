@@ -10,3 +10,7 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
 - Documentação completa da API planeada em `docs/`.
 - Peça 01 — basement: monorepo, `Container` com autowiring, `Application`, `Env`, `Config`, `Arr`, `Str`,
   `Facade`, `ServiceProvider`, bootstrappers e helpers base, com testes Pest, PHPStan 8 e Pint.
+- Peça 02 — HTTP e routing: `Request`/`Response` (JSON, redirect, view lazy, cookies, uploads), `Router` com grupos, resources,
+  binding e fallback, `Pipeline`, `Kernel`, sessão por ficheiro, middlewares (sessão, CSRF, trim, headers de segurança, CORS),
+  `Handler` com páginas 404/405/419/500 e página de debug, `UrlGenerator`, facades `Route`/`URL`/`Response`/`Session`,
+  helpers HTTP e skeleton mínimo (`public/index.php`, `bootstrap/app.php`).
