@@ -1,13 +1,312 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ComposerSettings">
-    <execution />
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;
+  <component name="ChangeListManager">
+    <list default="true" id="fc3273fb-6339-4ac9-8bb3-9dba6c25b199" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/slendie.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/ai-agents.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/auth.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/cli.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/configuration.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/contributing.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/controllers.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/database.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/deployment.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/errors.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/installation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/landing-page.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/laravel-differences.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/middleware.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/migrations.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/models.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/packages.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/query-builder.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/react-admin.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/requests-responses.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/routing.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/seeding.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/sessions.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/structure.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/testing.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/validation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/views.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/vite.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lang/en/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/lang/pt/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/resources/views/errors/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Console/Commands/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Container/BindingResolutionException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Container/CircularDependencyException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Container/Container.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Contracts/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Database/Migrations/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Database/Query/Grammars/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Database/Schema/Grammars/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Database/Seeders/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Exceptions/SlendieException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Foundation/Application.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/BootProviders.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/HandleExceptions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/LoadConfiguration.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/LoadEnvironment.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Foundation/Bootstrap/RegisterProviders.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Foundation/Exceptions/Handler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Foundation/ServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Http/Middleware/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Log/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Model/Relations/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Routing/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Session/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Support/Arr.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Support/Config.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Support/Env.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Support/Facade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Support/Str.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Support/helpers.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Testing/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/Validation/Rules/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/src/View/Compiler/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/stubs/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Feature/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/CircularA.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/CircularB.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/Clock.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/Greeter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/GreeterContract.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/Invokable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/Mailer.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/NeedsNullable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/NeedsScalar.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/Newsletter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/Providers/ConfigListedProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/Providers/DeferredProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/Providers/FixtureServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/ShoutingGreeter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/StaticHolder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Fixtures/config/fixture.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Pest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Unit/Container/ContainerTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Unit/Foundation/ApplicationTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Unit/Support/ArrTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Unit/Support/ConfigTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Unit/Support/EnvTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/Unit/Support/StrTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/_data/app/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/_data/app/bootstrap/providers.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/_data/app/config/app.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/_data/app/config/services.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/framework/tests/smoke.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/config/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/database/migrations/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/lang/en/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/lang/pt/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/resources/views/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/routes/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/src/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/auth/tests/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/react-admin/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/react-admin/resources/views/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/react-admin/src/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/react-admin/stubs/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/react-admin/tests/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/.env.example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/app/Console/Commands/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/app/Http/Controllers/Api/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/app/Http/Middleware/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/app/Http/Requests/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/app/Models/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/app/Providers/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/config/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/database/migrations/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/database/seeders/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/public/css/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/public/img/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/public/js/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/resources/views/errors/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/resources/views/layouts/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/resources/views/partials/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/routes/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/storage/app/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/storage/framework/views/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/storage/logs/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/skeleton/tests/Feature/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-01-critical-analysis.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-02-architecture.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-03-backlog.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-01-basement.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-02-http-routing.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-03-views-blade.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-04-database-query.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-05-model.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-06-schema-migrations.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-07-console.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-08-validation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-09-packages-vite.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-10-testing.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-11-skeleton.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-12-package-auth.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/specs/core-04-13-package-react-admin.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/App.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Controllers/AuthController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Controllers/FormController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Controllers/HomeController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Controllers/traits/ApiTrait.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Permission.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Role.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/20251119_224302_create_roles.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/20251119_225516_create_permissions.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/20251119_230134_create_role_permissions.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/20251120_200430_create_users.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/migrations/20251126_211009_create_api_tokens.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/constants.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/email.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/phpstan.neon" beforeDir="false" afterPath="$PROJECT_DIR$/phpstan.neon" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pint.json" beforeDir="false" afterPath="$PROJECT_DIR$/pint.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-tests.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/install.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/migrate.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/App/Controllers/AuthControllerTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/App/Controllers/FormControllerTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/App/Controllers/FormRouteTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/App/Controllers/HomeControllerTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/App/Models/UserModelTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Pest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Pest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/TestCase.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/TestController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/assets/css/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/assets/css/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/assets/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/assets/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/auth/confirm-password.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/auth/forgot-password.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/auth/login.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/auth/register.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/auth/reset-password.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/auth/verification-done.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/auth/verify-email.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/docs.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/home.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/auth.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layouts/front.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/legal.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/alerts.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/check-counter.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <execution />
+    </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="$PROJECT_DIR$/../../../../laragon/bin/php/php-8.3.6-Win32-vs16-x64/php.exe">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/laravel/pint" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php85" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/fidry/cpu-core-counter" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/termwind" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin-profanity" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin-mutate" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest-plugin-arch" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/brianium/paratest" />
+      <path value="$PROJECT_DIR$/vendor/pestphp/pest" />
+      <path value="$PROJECT_DIR$/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/vendor/ta-tikoma/phpunit-architecture-test" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/vendor/jean85/pretty-package-versions" />
+      <path value="$PROJECT_DIR$/vendor/staabm/side-effects-detector" />
+    </include_path>
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "main",
+    "settings.editor.selected.configurable": "editing.templates"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
       <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
