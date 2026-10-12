@@ -31,6 +31,23 @@ public/assets/
 .DS_Store
 Thumbs.db
 
+# por package
+framework/vendor/
+framework/composer.lock
+skeleton/vendor/
+skeleton/composer.lock
+skeleton/.env
+skeleton/database/*.sqlite
+skeleton/storage/framework/views/*.php
+skeleton/storage/framework/sessions/*
+skeleton/storage/logs/*.log
+skeleton/bootstrap/cache/*.php
+skeleton/public/build/
+skeleton/public/hot
+packages/*/vendor/
+packages/*/composer.lock
+packages/*/node_modules/
+
 # Database
 *.sqlite
 *.sqlite3
@@ -46,7 +63,8 @@ logs/
 # Cache
 cache/
 tmp/
-.phpunit.cache
+/.phpunit.cache/
+/.phpunit.result.cache
 
 # Tests databases
 test*.sqlite

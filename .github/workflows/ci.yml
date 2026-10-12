@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }} · ${{ matrix.db }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.5']
+        db: ['sqlite', 'mysql', 'pgsql']
+
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: slendie_test
+        ports: ['3306:3306']
+        options: --health-cmd="mysqladmin ping -proot" --health-interval=10s --health-timeout=5s --health-retries=5
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: slendie_test
+        ports: ['5432:5432']
+        options: --health-cmd=pg_isready --health-interval=10s --health-timeout=5s --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo, pdo_sqlite, pdo_mysql, pdo_pgsql, mbstring, json
+          coverage: pcov
+
+      - name: Instalar dependências
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Lint (Pint)
+        run: composer lint
+
+      - name: Análise estática (PHPStan)
+        run: composer analyse
+
+      - name: Testes
+        env:
+          DB_TEST_MYSQL_DSN: ${{ matrix.db == 'mysql' && 'mysql:host=127.0.0.1;port=3306;dbname=slendie_test' || '' }}
+          DB_TEST_MYSQL_USER: root
+          DB_TEST_MYSQL_PASS: root
+          DB_TEST_PGSQL_DSN: ${{ matrix.db == 'pgsql' && 'pgsql:host=127.0.0.1;port=5432;dbname=slendie_test' || '' }}
+          DB_TEST_PGSQL_USER: postgres
+          DB_TEST_PGSQL_PASS: postgres
+        run: composer test -- --colors=always

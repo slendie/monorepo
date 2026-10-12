@@ -1,40 +1,45 @@
-# Slendie
+# Slendie v4 — monorepo
 
-Starter kit para pequenos projetos em PHP.
+Slendie é um **Laravel light**: framework MVC em PHP 8.5, sem dependências em runtime, para landing pages com painel
+de leads e sites simples renderizados em PHP. Este repositório contém tudo o que é publicado no Packagist:
 
-## Instalação
+| Pasta | Package | O que é |
+|---|---|---|
+| `framework/` | `slendie/framework` | O código da framework (`Slendie\`) |
+| `skeleton/` | `slendie/slendie` | O projecto que o utilizador recebe com `composer create-project` |
+| `packages/auth/` | `slendie/auth` | Login por sessão e tokens de API (opcional) |
+| `packages/react-admin/` | `slendie/react-admin` | Painel de leads em React (opcional) |
+| `docs/` | — | Documentação para utilizadores |
+| `specs/` | — | Análise, arquitectura, backlog e especificações de implementação |
 
-composer create-project slendie/slendie meu-projeto
-cd meu-projeto## Configuração
+## Começar a desenvolver
 
-1. Copie o arquivo `.env.example` para `.env`:
-cp .env.example .env2. Configure as variáveis de ambiente no arquivo `.env`
-
-3. Execute as migrações:
-```sh
-php scripts/migrate.php4. Instale as dependências do frontend:
-npm install
-npm run dev## Estrutura do Projeto
+```bash
+composer install        # liga os packages locais por path
+composer test
+composer analyse
+composer lint
 ```
 
-- `app/` - Controllers, Models, Migrations
-- `config/` - Arquivos de configuração
-- `public/` - Ponto de entrada da aplicação
-- `src/` - Classes core do framework
-- `views/` - Templates Blade
-- `tests/` - Testes automatizados
+Experimentar o skeleton como utilizador final:
 
-## Desenvolvimento
+```bash
+composer create-project --repository='{"type":"path","url":"skeleton"}' slendie/slendie ../demo --no-interaction
+cd ../demo && php slendie serve
+```
 
-# Executar testes
-composer test
+## Para onde ir
 
-# Build de assets
-npm run build
+- Utilizador da framework → [`docs/README.md`](docs/README.md)
+- Porque é que a v4 é uma reescrita → [`specs/core-01-critical-analysis.md`](specs/core-01-critical-analysis.md)
+- Como está desenhada → [`specs/core-02-architecture.md`](specs/core-02-architecture.md)
+- O que falta e por que ordem → [`specs/core-03-backlog.md`](specs/core-03-backlog.md)
+- Implementar uma peça → `specs/core-04-NN-*.md`
 
-# Servidor de desenvolvimento
-php -S localhost:8000 -t public
+## Estado
+
+Peça 01 (basement) implementada. Ver backlog para as restantes.
 
 ## Licença
 
-MIT
+MIT.
