@@ -26,6 +26,7 @@ php slendie serve
 - [Sessão](sessions.md)
 - [Views e Blade](views.md)
 - [Validação](validation.md)
+- [Traduções](localization.md)
 - [Erros e logging](errors.md)
 
 ### Base de dados

@@ -46,4 +46,23 @@ page num formulário de leads a sério.
 - `composer test/analyse/lint` verdes; `docs/validation.md` com tabela de regras disponíveis **e** de regras do Laravel não suportadas (`active_url`, `dimensions`, `exclude_*` parcial, `uncompromised`), `docs/localization.md` curto.
 
 ## Desvios
-(preencher na implementação)
+- **`Rule` vs interface:** `Rule` é a classe de fábricas estáticas (`Rule::in()`, `Rule::unique()`…); a interface das regras-objecto chama-se
+  `ValidationRule` (`validate($attribute, $value, Closure $fail)`), com `DataAwareRule`/`ValidatorAwareRule` opcionais. `In`, `NotIn`, `RequiredIf`
+  e `ProhibitedIf` são `Stringable` (viram `in:"a","b"`…) para que as mensagens por regra continuem a funcionar; `Unique`, `Exists`, `Enum`, `Password`
+  e `File` são `ValidationRule`. `Rule::when()` devolve `ConditionalRules` e o parser escolhe o conjunto com os dados.
+- **Construtor do `Validator`:** `(Translator, data, rules, messages, attributes)` — o `Translator` vai primeiro porque em PHP um parâmetro obrigatório
+  não pode vir depois de opcionais. `Validator::make()` e `validator()` passam pelo `Validation\Factory` (singleton `validator`; fora de uma
+  Application usa os textos da framework em `pt`).
+- **`exists`/`unique`** vão por `PresenceVerifier` (sobre o `DatabaseManager`), não por um interface; sem `connection.table` nem models.
+- **Rules** extra além da lista: `prohibited_unless`, `declined_if`, `timezone`, `hex_color`, `Rule::prohibitedIf`, `Rule::password`, `Rule::file`,
+  `Validator::extend()` (regras por nome) e `ValidationException::status()`. `exclude_*` ficam completas (as cinco); sem `Rule::excludeIf`.
+- **`sometimes(attr, rules, Closure)`** passa `array $data` à condição (não há `Fluent`).
+- **Paragem após regra de presença:** como no Laravel, se `required`/`filled`/... falha, as regras seguintes do campo não correm (uma só mensagem).
+- **`mimes`** usa uma tabela mime→extensão e `finfo`; só para ficheiros de texto (txt, csv, tsv, md, log, json) se confia na extensão do nome.
+- **`ViewErrorBag` removido:** `$errors` é `MessageBag`; a sessão continua a guardar `errors` como `[bag => [campo => mensagens]]` (arrays) e o
+  middleware só partilha a bag `default`. `@error('x', 'bag')` ignora a bag, como previsto.
+- **Falha sem sessão:** um pedido não-JSON sem sessão (fora do grupo `web`) também recebe 422 JSON em vez de rebentar no redirect.
+- **Handler:** grava a sessão logo após o flash (o `StartSession` já a tinha gravado quando a excepção o atravessou).
+- **`ServiceProvider::loadTranslationsFrom()`** continua para a peça 09 (o `Translator::addNamespace()` já existe).
+- **Skeleton:** `ContactController@store` grava em `leads` (`source = contact`, IP e user-agent) e faz `back()->with('status', …)`; rota
+  `POST /contact`; a view `contact.blade.php` fica para a peça 11. `config/app.php` ganha `fallback_locale`.
