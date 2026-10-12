@@ -31,6 +31,13 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   `fetch()/fetchAll()`), `Model\Builder` (scopes locais e globais, `paginate`, `chunk`, `cursor`, `firstOrCreate`, `updateOrCreate`),
   `Collection`, relações lazy `hasOne/hasMany/belongsTo`, traits `SoftDeletes` e `HasUuids`, `ModelNotFoundException` (404) e
   route-model binding completo (`{lead}` e `{post:slug}`).
+- Peça 06 — schema, migrações e seeders: `Schema\Builder` (`create/table/drop/rename`, `hasTable/hasColumn`, `getColumns`, `getTables`,
+  `dropAllTables`, `withoutForeignKeyConstraints`), `Blueprint` com todos os tipos de coluna, modifiers, índices e chaves estrangeiras,
+  grammars de DDL para SQLite, MySQL/MariaDB e PostgreSQL (identificadores validados, literais citados), facade `Schema`
+  (`Schema::connection()`), `Migration`, `MigrationRepository` (batches), `Migrator` (`run/rollback/reset/fresh/status/pretend`, transacção
+  por migração onde o driver o permite, várias pastas, classes anónimas e nomeadas), `MigrationCreator` com stubs, `Seeder`
+  (`call/callWith`, injecção de dependências), migração `create_leads_table` e seeders de exemplo no skeleton, `docs/migrations.md`
+  e `docs/seeding.md`.
 
 ### Changed
 - `Router::toResponse()` renderiza as views dentro do pipeline (excepções e `abort()` em views passam pelo `Handler`; `old()`/flash
