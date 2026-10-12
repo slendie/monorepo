@@ -111,6 +111,40 @@ cache em `bootstrap/cache/packages.php`, regenerada no `post-autoload-dump`). Na
 | Config `blog.*` | `config/blog.php` (publicado) |
 | Descoberta | `composer.json` → `extra.slendie.dont-discover: ["acme/blog"]` |
 
+## Registar comandos
+
+Um package traz os seus comandos de consola registando-os no `boot()` do provider. Só têm efeito em CLI (`php slendie`);
+numa página web `commands()` não faz nada.
+
+```php
+public function boot(): void
+{
+    $this->commands([InstallCommand::class, PublishPostCommand::class]);
+}
+```
+
+```php
+final class InstallCommand extends Command
+{
+    protected string $signature = 'blog:install {--force : Substitui ficheiros existentes}';
+    protected string $description = 'Instala o blog (config, migrações e views)';
+
+    public function handle(): int
+    {
+        $this->call('vendor:publish', ['--tag' => ['blog-config', 'blog-migrations'], '--force' => $this->option('force')]);
+        $this->call('migrate');
+
+        return self::SUCCESS;
+    }
+}
+```
+
+- Os comandos são instanciados pelo container: dependências no construtor ou, de preferência, no `handle()`.
+- Aparecem em `php slendie list` (agrupados pelo prefixo antes de `:`) e em `php slendie help blog:install`.
+- `$this->publishes([...], 'tag')` torna ficheiros publicáveis com `php slendie vendor:publish --tag=tag`; sem argumentos o
+  comando lista as tags disponíveis. `--provider=Classe` publica tudo o que um provider registou e `--all` tudo.
+- Para scripts rápidos usa `Console::command('blog:ping', fn () => $this->info('pong'))` num ficheiro carregado pelo provider.
+
 ## Providers adiados
 
 ```php
