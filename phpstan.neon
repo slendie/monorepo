@@ -8,3 +8,10 @@ parameters:
         - framework/stubs
     treatPhpDocTypesAsCertain: false
     reportUnmatchedIgnoredErrors: true
+    ignoreErrors:
+        # Traits do ORM: só são usadas pelos models das aplicações (e pelos fixtures de teste).
+        -
+            identifier: trait.unused
+            paths:
+                - framework/src/Model/HasUuids.php
+                - framework/src/Model/SoftDeletes.php

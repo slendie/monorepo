@@ -62,4 +62,17 @@ lazy `hasOne/hasMany/belongsTo`, `Collection`, e proxies estáticos para o Query
 Eager loading, `belongsToMany`, polimórficas, factories, `Model::preventLazyLoading`, attribute classes (`Attribute::make`), pruning.
 
 ## Desvios
-(preencher na implementação)
+Implementado em 2026-10-11 (754 testes no total, 70 skipped por falta de MySQL/PostgreSQL locais; PHPStan nível 8 e Pint verdes). Divergências face ao texto acima:
+
+1. **`Route` ganhou `{param:campo}`** (`bindingField()`): o router e o `UrlGenerator` aceitam `/posts/{post:slug}` e o `SubstituteBindings` passa o campo a `resolveRouteBinding()`. Era o que faltava da peça 02 para o binding por campo.
+2. **`SubstituteBindings`**: para subclasses de `Model` lança `ModelNotFoundException` (→ 404 via `Handler`); para outros `UrlRoutable` mantém `NotFoundHttpException`. `ModelNotFoundException` estende `RecordNotFoundException`, por isso o `Handler` não precisou de mapeamento novo (só um comentário).
+3. **Ligação do model**: `Model::setConnectionResolver()` (closure ou `DatabaseManager`), ligado pelo `DatabaseServiceProvider::boot()`; sem ele, usa o `DatabaseManager` do container ou lança `LogicException`.
+4. **`Query\Builder::groupWheres()`** (novo, público): os global scopes são aplicados sobre os `where` existentes agrupados em parênteses, para que `where(a)->orWhere(b)` não se misture com `deleted_at is null`.
+5. **Relações** têm de declarar o tipo de retorno (`HasMany`, `HasOne`, `BelongsTo`); é assim que `$lead->notes` distingue relações de outros métodos sem invocar métodos arbitrários. `belongsTo` usa o nome da classe relacionada para a FK (`Lead` → `lead_id`), não o nome do método. Criou-se `HasOneOrMany` como base comum e as relações acrescentam `whereNotNull(fk)`.
+6. **Mass-assignment em debug**: a decisão lê `Application::isDebug()` do container; sem aplicação, descarta. `Model::preventSilentlyDiscardingAttributes(true|false|null)` força o comportamento.
+7. **Serialização**: em `toArray()` as datas saem como texto (`$dateFormat`, ou `Y-m-d` para `date`), não ISO 8601; os enums como o seu valor.
+8. **Casts**: `created_at`/`updated_at` são `datetime` por omissão e a chave primária incremental é `int`; `encrypted` e casts desconhecidos lançam `LogicException` ao aceder/atribuir.
+9. **Builder do model**: `pluck()`/`value()` devolvem valores em bruto (sem casts); os closures de `where(fn ($q) => …)` recebem o Query Builder base. `update()`/`delete()`/`restore()` em massa não disparam eventos. `Model::create/forceCreate` constroem a instância directamente (equivalente a `query()->create()`); `firstOrCreate/firstOrNew/updateOrCreate/firstWhere/find…` chegam aos estáticos via `__callStatic` (documentados com `@method`).
+10. **Extras**: `Builder::restore()`, `simplePaginate()`, `Model::clearBootedModels()` (testes), `getChanges()`, `Collection::__toString/random/shuffle`, `Model::on()`.
+11. **PHPStan**: `@phpstan-consistent-constructor` em `Model`, `Collection` e `RelationNotFoundException`; `phpstan.neon` ignora `trait.unused` para `SoftDeletes`/`HasUuids` (só são usadas por models de aplicações e fixtures).
+12. **Não executado**: o `Model` só foi testado em SQLite `:memory:`; MySQL/PostgreSQL dependem do SQL do Query Builder (peça 04, também não executado nesses drivers). Stubs `make:model` continuam na peça 07.
