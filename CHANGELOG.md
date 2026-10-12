@@ -38,8 +38,18 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   por migração onde o driver o permite, várias pastas, classes anónimas e nomeadas), `MigrationCreator` com stubs, `Seeder`
   (`call/callWith`, injecção de dependências), migração `create_leads_table` e seeders de exemplo no skeleton, `docs/migrations.md`
   e `docs/seeding.md`.
+- Peça 07 — consola (`php slendie`), sem dependências: `Console\Application` (registo, `find` com sugestões, `run`, `call`), `Command`
+  (assinatura estilo Laravel com descrições, `handle()` com DI, `ask/secret/confirm/choice`, `table`, `task`, `call/callSilently`,
+  verbosidade e cores ANSI que respeitam `NO_COLOR`), `Input`/`Output`/`BufferedOutput`, `SignatureParser`, comandos por closure
+  (`routes/console.php`, facade `Console`), descoberta de `app/Console/Commands`, `ServiceProvider::commands()` e
+  `GeneratorCommand` com stubs (os de `stubs/` do projecto têm prioridade). Comandos: `serve`, `migrate`, `migrate:install|status|rollback|reset|refresh|fresh`,
+  `db:seed`, `db:wipe`, `make:controller|model|migration|middleware|provider|command|seeder|view`, `route:list`, `view:clear`,
+  `key:generate`, `vendor:publish`, `about`, `env`, `list` e `help`. Script `skeleton/slendie`, `routes/console.php` e
+  `bootstrap/providers.php` no skeleton; `docs/cli.md` e secção "Registar comandos" em `docs/packages.md`.
 
 ### Changed
 - `Router::toResponse()` renderiza as views dentro do pipeline (excepções e `abort()` em views passam pelo `Handler`; `old()`/flash
   funcionam durante o render).
 - `Contracts\ViewFactory` ganha `exists()`; `ShareErrorsFromSession` partilha um `ViewErrorBag`.
+- `Migrator::setOutput()` aceita `null` (deixa de emitir mensagens); `Foundation\Application` regista `Console\Application` como
+  singleton e a `ConsoleServiceProvider` entre os providers da framework.
