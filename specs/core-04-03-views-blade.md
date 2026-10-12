@@ -61,4 +61,52 @@ Cobrir todas as directivas listadas; herança com `@parent`; includes aninhados 
 - Documentação `docs/views.md` com a lista completa de directivas suportadas e das **não** suportadas (components `<x-…>`, `@each`, `@lang`, `@can`) com alternativa.
 
 ## Desvios
-(preencher na implementação)
+Implementado em 2026-10-11 (297 testes no total, PHPStan nível 8 e Pint verdes). Divergências face ao texto acima:
+
+1. **O PHP compilado tem exactamente as mesmas linhas que o template; não há marcadores `/**#L{n}**/`.** Todas as transformações
+   (echos, comentários, `@verbatim`, `@php`, directivas com argumentos em várias linhas) preservam o número de quebras de linha
+   — o compilador guarda os troços já finais em marcadores com as mesmas linhas e o `?>` que engole uma quebra de linha é
+   compensado com `echo "\n"` dentro do PHP. Por isso a linha de uma excepção no ficheiro compilado *é* a linha do `.blade.php`
+   (o `Engine` usa-a directamente) e a `CompileException` conta as linhas na própria fonte. No fim do ficheiro compilado fica só
+   `<?php /**PATH:{fonte}|HASH:{sha1 do conteúdo}**/ ?>` (usado pelo modo debug para detectar alterações).
+2. **`Engine::get(string $path, array $data, Factory $env)` recebe o ficheiro *fonte*** (não o compilado) e compila-o se a cache
+   estiver desactualizada: a `Factory` do spec só tem `Finder` e `Engine`, logo o `Engine` é quem conhece o `BladeCompiler`.
+3. **`@include`/`@extends` chamam `$__env->renderInclude(get_defined_vars(), 'view', [dados])`** (e `renderIncludeIf/When/Unless/First`),
+   em vez de `make(..., array_merge(get_defined_vars(), ...))->render()`: a remoção de `__env`, `__data` e `__path` do escopo
+   fica num só sítio e não é preciso partir os argumentos em tempo de compilação.
+4. **`@foreach`/`@forelse` guardam a colecção em `$__currentLoopData`** antes de `addLoop()`/`foreach` (a expressão só é avaliada uma
+   vez), como no Laravel. `$loop` é um objecto `View\Loop` (propriedades tipadas) e `$loop->parent` é o `Loop` do ciclo exterior.
+5. **`Compiler/Directives/` são traits** (`Layouts`, `Conditionals`, `Loops`, `Echos`, `Forms`, `Assets`, `Misc`) misturadas no
+   `BladeCompiler`. `{{ }}`, `{!! !!}`, comentários, `@verbatim` e `@php … @endphp` são tratados no pipeline do compilador (precisam
+   de preservar linhas); `@json` fica em `Echos`. Os handlers de directivas personalizadas recebem a expressão **sem** os
+   parênteses exteriores (`''` se não houver), como no Laravel.
+6. **Regra do `@`:** uma directiva só é reconhecida se o `@` não estiver colado a uma letra/número (o `\B@` do Laravel), o que
+   também protege emails e `logo@2x.png`. Efeito: `texto@endif` ou `@endsection@section` (directivas coladas, sem parênteses a
+   separar) não compilam; é preciso um espaço, quebra de linha ou tag. At-rules de CSS/JS passam intactas (lista alargada ao Tailwind
+   v4: `@theme`, `@utility`, `@source`, `@variant`, `@plugin`, `@config`, `@reference`, `@container`, `@property`, `@scope`…), e
+   nomes seguidos de hífen (`@font-face`, `@custom-variant`) nunca são directivas.
+7. **Directivas acrescentadas** além da lista: `@append`, `@hasSection` e `@sectionMissing`. `@env` aceita vários nomes ou um array. `@class` produz `class="…"` (como o Laravel) usando
+   `Arr::toCssClasses()` (novo). `@json` aplica sempre `JSON_HEX_TAG|APOS|AMP|QUOT` (seguro em `<script>` e atributos), mesmo
+   quando se passam flags. `@error('campo')` usa `$errors->has()/first()` e restaura o `$message` anterior no `@enderror`.
+8. **`$errors` é sempre um `View\ViewErrorBag`** (`has/first/get/all/any/count/getBag`): a `Factory` partilha um vazio por omissão e o
+   `ShareErrorsFromSession` substitui-o por `ViewErrorBag::fromSession()` (bag `default` do flash `errors` que o `withErrors()` grava).
+   A peça 08 troca-o pelo `MessageBag`.
+9. **`Router::toResponse()` renderiza as views dentro do pipeline** (altera o comportamento "lazy" da peça 02). Com render lazy, uma
+   excepção na view ou um `abort()` dentro dela escapava ao `Kernel`/`Handler` (acontecia em `$response->send()`), e `old()`/flash já
+   tinham sido envelhecidos pelo `StartSession`. O `ViewResponse` continua a poder ser construído lazy fora do Router.
+10. **Contrato `Contracts\ViewFactory` ganhou `exists()`** (usado pelo `Handler`). `Handler` deixa de ter `findErrorTemplate()`/
+    `renderTemplate()`: usa `renderErrorView()` com `errors::{status}` → `errors::generic` → HTML mínimo, e engole qualquer erro
+    ao renderizar a própria página de erro.
+11. **Páginas de erro** em `framework/resources/views/errors/*.blade.php` (+ `layout.blade.php`); as `.php` foram apagadas. O
+    `Finder` regista o namespace `errors` com [`resources/views/errors` do projecto, pasta da framework] — o projecto vence.
+12. **`ViewServiceProvider`** lê `view.paths` e `view.compiled` de `config/view.php` *se existir* (por omissão `resources/views` e
+    `storage/framework/views`); a `Factory` recebe o container para composers em classe (`Classe` ou `Classe@metodo`).
+    `ServiceProvider::loadViewsFrom()` continua para a peça 09. `@vite` compila para o helper `vite()` (stub que devolve `''`).
+13. **Nomes de view são validados** (`[A-Za-z0-9_-]` separados por `.`, com `ns::` opcional); nomes como `../x` ou `a/b` lançam
+    `ViewNotFoundException`. Excepções `HttpException` dentro de views passam sem serem embrulhadas em `ViewException`; um
+    buffer por fechar (`@section` sem `@endsection`) é reportado como `ViewException`.
+14. **Medições (informativas)**, Windows, PHP 8.5 sem Xdebug: compilar um template de 183 linhas ≈ 0,9 ms; render em cache de uma
+    view mínima ≈ 0,4–0,7 ms (dominado pelos 3 `stat` de `isExpired()` no NTFS) e ≈ 3,7 ms para o template de 183 linhas com 60
+    ciclos (≈ 180 iterações). O alvo de 0,5 ms só se cumpre em views pequenas neste ambiente.
+15. **Verificado** com a `Application` do skeleton em processo (`GET /` → 200 com `layouts/app` + `home`, `GET /x` → 404, `POST /` →
+    405). Cobertura de código não medida (sem driver Xdebug/PCOV neste ambiente).

@@ -96,10 +96,12 @@ return redirect('/x')->with('success', 'Guardado!');          // flash
 ### Views
 
 ```php
-return view('home', ['title' => 'Olá']);          // peça 03
+return view('home', ['title' => 'Olá']);
 ```
 
-Uma `Renderable` devolvida pela acção vira `ViewResponse` e só é renderizada quando o corpo é pedido.
+Uma `Renderable` (ou um `ViewResponse`, `response()->view()`) devolvida pela acção é renderizada logo pelo `Router`, dentro do
+pipeline: uma excepção na view — ou um `abort()` dentro dela — passa pelo `Handler`, e a sessão ainda está activa (`old()`,
+flash, `csrf_token()`).
 
 ## Cookies
 
