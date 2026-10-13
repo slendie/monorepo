@@ -23,7 +23,7 @@
 | # | Peça | Spec | Entrega | Depende de | Estado |
 |---|---|---|---|---|---|
 | 11 | Skeleton `slendie/slendie`: estrutura completa, landing page + formulário de contacto + `Lead`, CLI `slendie`, `.env.example`, `bin/setup`, `AGENTS.md`, README | `core-04-11-skeleton.md` | `composer create-project` → `php slendie serve` → landing funcional e lead gravado | 01–10 | ⬜ |
-| 12 | Package `slendie/auth`: AuthManager, SessionGuard, TokenGuard (API), model `User`, migrações, middlewares `auth`/`guest`, views login/logout, `@auth/@guest`, `auth:install`, `make:user` | `core-04-12-package-auth.md` | `composer require slendie/auth && php slendie auth:install` protege `/admin` | 09, 11 | ⬜ |
+| 12 | Package `slendie/auth`: AuthManager, SessionGuard, TokenGuard (API), model `User`, migrações, middlewares `auth`/`guest`, views login/logout, `@auth/@guest`, `auth:install`, `make:user` | `core-04-12-package-auth.md` | `composer require slendie/auth && php slendie auth:install` protege `/admin` | 09, 11 | ✅ 2026-10-13 (1468 testes, 45 skipped sem MySQL/PostgreSQL; PHPStan 8, Pint) |
 | 13 | Package `slendie/react-admin`: Vite + React + painel de leads (lista, filtro, detalhe, estado), consome `/api/leads`, `react-admin:install` | `core-04-13-package-react-admin.md` | `npm run dev` → painel em `/admin` autenticado | 11, 12 | ⬜ |
 
 ## Fase 3 — Publicação
