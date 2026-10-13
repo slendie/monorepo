@@ -17,7 +17,7 @@ use Slendie\Model\Model;
 class Lead extends Model
 {
     /** @var list<string> */
-    public const array STATUSES = ['new', 'contacted', 'qualified', 'lost'];
+    public const array STATUSES = ['new', 'contacted', 'qualified', 'lost', 'won'];
 
     /** @var list<string> */
     protected array $fillable = ['name', 'email', 'phone', 'message', 'source', 'status', 'ip', 'user_agent'];

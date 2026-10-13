@@ -35,12 +35,35 @@ npm run build          # public/build/
 
 Com `APP_DEBUG=false` e sem `npm run dev`, `@vite` lê o manifest. Faz *deploy* de `public/build/` com o código.
 
+## O instalador
+
+`react-admin:install` (opções `--force`, `--no-npm`):
+
+- aborta com instruções se `slendie/auth` não estiver instalado (`composer require slendie/auth && php slendie auth:install`) ou se não existir `App\Models\Lead`;
+- publica `resources/admin/**`, `vite.config.ts` e `tsconfig.json` (nunca sobrepõe sem `--force`; se já tens um `vite.config.ts`, acrescenta-lhe a entrada `resources/admin/main.tsx`);
+- faz *merge* do `package.json` (acrescenta dependências e scripts em falta; o que já tens prevalece);
+- acrescenta `/public/build`, `/public/hot` e `/node_modules` ao `.gitignore` e o `Cache-Control` imutável de `/build/*` ao `public/.htaccess`;
+- publica a migração `add_notes_to_leads_table` só se `leads.notes` ainda não existir;
+- com npm disponível (e sem `--no-npm`) pergunta se corre `npm install`.
+
+Tags de `vendor:publish`: `react-admin-stubs`, `react-admin-views` (a view `app.blade.php`, para mudares o `<head>`) e `react-admin-migrations`.
+
 ## Adaptar a outro model
 
 O código publicado é teu (`resources/admin/**`). Para gerir, por exemplo, `Order`:
-1. Copia `pages/Leads.tsx` → `pages/Orders.tsx` e `hooks/useLeads.ts` → `useOrders.ts`.
-2. Cria `App\Http\Controllers\Api\Admin\OrderController` (o `LeadController` do package serve de modelo) e regista em `routes/api.php` dentro de `middleware(['web', 'auth'])`.
+1. Copia `pages/Leads.tsx` → `pages/Orders.tsx` e `hooks/useLeads.ts` → `useOrders.ts` (e `types.ts` com o novo tipo).
+2. Cria `App\Http\Controllers\Api\Admin\OrderController`, usando o `LeadController` do package como modelo
+   (`packages/react-admin/src/Http/Controllers/Api/LeadController.php`), e regista as rotas em `routes/api.php` dentro de
+   `Route::middleware(['web', 'auth'])->prefix('admin')->group(...)`.
 3. Acrescenta a rota em `router.tsx` e o item na `Sidebar`.
+
+Para o **mesmo painel sobre outro model de leads** (outro namespace), indica-o num provider da app:
+`Slendie\ReactAdmin\Support\Leads::$model = \App\Models\Contact::class;` (precisa das colunas `name`, `email`, `status`, `notes`).
+
+## Testes
+
+- PHP: `vendor/bin/pest packages/react-admin` (acesso, API, CSRF, instalador).
+- Frontend: `npm test` (vitest: `api.ts` e `Pagination`); não entra no CI PHP.
 
 ## Sem React?
 

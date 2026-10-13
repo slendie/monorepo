@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c33597fe03a0027a00adf6608f63ac1c",
+    "content-hash": "f795a79de82051bc83345f723c9ff157",
     "packages": [
         {
             "name": "slendie/framework",
@@ -3277,11 +3277,11 @@
         },
         {
             "name": "slendie/auth",
-            "version": "dev-feature/v4-package-auth",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "packages/auth",
-                "reference": "1071267c3f5d99cdbde80efcbbab0d7b9ef2b79a"
+                "reference": "33a0205a1852468e02fbd98e6afb65c625f6e5a3"
             },
             "require": {
                 "php": "^8.5",
@@ -3289,6 +3289,9 @@
             },
             "type": "library",
             "extra": {
+                "branch-alias": {
+                    "dev-main": "4.x-dev"
+                },
                 "slendie": {
                     "providers": [
                         "Slendie\\Auth\\AuthServiceProvider"
@@ -3324,6 +3327,60 @@
                 "login",
                 "slendie",
                 "tokens"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "slendie/react-admin",
+            "version": "dev-feature/v4-package-react-admin",
+            "dist": {
+                "type": "path",
+                "url": "packages/react-admin",
+                "reference": "6e7efdaf810f243da2d02c4fc6f3ce0df7439bfe"
+            },
+            "require": {
+                "php": "^8.5",
+                "slendie/auth": "^4.0",
+                "slendie/framework": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "slendie": {
+                    "providers": [
+                        "Slendie\\ReactAdmin\\ReactAdminServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Slendie\\ReactAdmin\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Slendie\\ReactAdmin\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luciano Closs",
+                    "email": "lcloss@gmail.com"
+                }
+            ],
+            "description": "Painel de leads em React 19 + Vite + Tailwind para a Slendie, autenticado com slendie/auth.",
+            "keywords": [
+                "admin",
+                "dashboard",
+                "leads",
+                "react",
+                "slendie",
+                "vite"
             ],
             "transport-options": {
                 "symlink": true,
@@ -4458,7 +4515,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "slendie/auth": 20,
-        "slendie/framework": 20
+        "slendie/framework": 20,
+        "slendie/react-admin": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

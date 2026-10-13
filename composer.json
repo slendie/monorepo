@@ -18,12 +18,14 @@
         "laravel/pint": "^1.26",
         "pestphp/pest": "^4.0",
         "phpstan/phpstan": "^2.1",
-        "slendie/auth": "@dev"
+        "slendie/auth": "@dev",
+        "slendie/react-admin": "@dev"
     },
     "autoload-dev": {
         "psr-4": {
             "Slendie\\Tests\\": "framework/tests/",
-            "Slendie\\Auth\\Tests\\": "packages/auth/tests/"
+            "Slendie\\Auth\\Tests\\": "packages/auth/tests/",
+            "Slendie\\ReactAdmin\\Tests\\": "packages/react-admin/tests/"
         }
     },
     "scripts": {

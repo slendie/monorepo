@@ -61,7 +61,7 @@ curl -X PUT -H "Authorization: Bearer $API_TOKEN" -H "Content-Type: application/
      -d '{"status":"contacted"}' http://127.0.0.1:8000/api/leads/1
 ```
 
-Estados: `new`, `contacted`, `qualified`, `lost`.
+Estados: `new`, `contacted`, `qualified`, `lost`, `won`.
 
 ## Painel de leads
 

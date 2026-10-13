@@ -89,8 +89,15 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   `@auth/@guest`, `redirect()->intended()`, `LoginController`/`LogoutController` com limitador de tentativas em ficheiros (429 + `Retry-After`),
   views e traduções pt/en publicáveis, migrações `users` e `personal_access_tokens`, comandos `auth:install`, `make:user` e `auth:token`,
   helpers `auth()` e `bcrypt()`. `docs/auth.md` e `packages/auth/README.md`; 89 testes Pest.
+- Peça 13 — package `slendie/react-admin`: painel de leads em React 19 + TypeScript + react-router 7 + Tailwind 4 servido em `/admin/{any?}` (uma view
+  `react-admin::app` com `<div id="app" data-config>`, `@viteReactRefresh` e `@vite`) e API `/api/admin` (`me`, `stats`, `leads` com pesquisa, filtro de estado,
+  ordenação por colunas permitidas e paginação, `show`, `PATCH` de estado/notas e `DELETE`) em grupo `web` + `auth` (sessão + CSRF); `react-admin:install`
+  (publica `resources/admin`, `vite.config.ts`, `tsconfig.json`, faz merge do `package.json`, `.gitignore` e `.htaccess` com cache de `/build/*`, publica
+  a migração `notes` só se a coluna não existir, aborta sem `slendie/auth` ou sem `App\Models\Lead`); frontend com vitest (`api.ts`, `Pagination`).
+  `docs/react-admin.md` e `packages/react-admin/README.md`; 23 testes Pest.
 
 ### Changed
+- `vendor:publish --tag=<grupo>` publica só os ficheiros desse grupo (antes publicava tudo o que o provider registou); `slendie/auth` ganha `branch-alias` `4.x-dev`.
 - `Application::VERSION` passa a `4.0.0`; `Handler::report()` delega no `Logger` (linha com milissegundos e a excepção por extenso).
 - `Router::toResponse()` renderiza as views dentro do pipeline (excepções e `abort()` em views passam pelo `Handler`; `old()`/flash
   funcionam durante o render).

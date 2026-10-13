@@ -62,4 +62,13 @@ php slendie serve               # terminal 2
 SSR, Inertia, autenticação por token no SPA, gestão de utilizadores no painel (v4.1), exportação CSV (v4.1, trivial), gráficos além de barras simples em CSS.
 
 ## Desvios
-(preencher na implementação)
+- **Rotas da API** carregadas pelo provider com `['middleware' => ['web','auth'], 'prefix' => 'api/admin']` a partir de `routes/api.php` do package (e não do `routes/api.php` do projecto, que tem o grupo `api`/CORS).
+- **`Leads::$model`** (propriedade estática) em vez de `App\Models\Lead` fixo, para os testes e para outro model; os controllers procuram por `{lead}` (id) e não por *route model binding*, porque o model é variável.
+- **Controllers sem `Authenticatable`**: `UserPayload` extrai `id/name/email` do model autenticado.
+- **`statuses`** inclui `won`; o `Lead` do skeleton passa a aceitar `won` (`STATUSES`) — a spec pedia `new,contacted,qualified,lost,won`.
+- **Pasta `stubs/`** publicada por partes (`resources/admin`, `vite.config.ts`, `tsconfig.json`); o `package.json` é *merged* pelo comando em vez de copiado.
+- **Framework:** `vendor:publish --tag=x` publicava todos os ficheiros do provider, não só os do grupo; `ServiceProvider` passa a guardar os caminhos por grupo (necessário para não publicar a migração `notes` quando a coluna já existe).
+- **`slendie/auth`** ganha `branch-alias` `4.x-dev` (como a framework) para o monorepo resolver `slendie/auth ^4.0` no `react-admin`.
+- **Stats dos 7 dias** com 7 `count()` por intervalo `[dia, dia+1)` (o `Model\Builder` não tem `whereDate`).
+- **Vitest** em ambiente `node` (sem jsdom): `api.ts` com `window`/`document`/`fetch` simulados e `Pagination` via `renderToStaticMarkup`.
+- **Validado fora do PHP:** `tsc --noEmit`, `vitest run` (6 testes) e `vite build` correram com sucesso numa cópia dos stubs; o fluxo completo no browser (`npm run dev` + `php slendie serve`) não foi exercitado nesta sessão.
