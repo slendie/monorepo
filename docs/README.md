@@ -40,6 +40,7 @@ php slendie serve
 ### Ferramentas
 - [CLI `php slendie`](cli.md)
 - [Testes](testing.md)
+- [Desempenho (benchmark)](performance.md)
 - [Vite e assets](vite.md)
 - [Agentes de IA (`ai:context`, `AGENTS.md`)](ai-agents.md)
 
