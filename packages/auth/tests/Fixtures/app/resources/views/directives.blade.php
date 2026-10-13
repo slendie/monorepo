@@ -1,0 +1,9 @@
+@auth
+IN
+@endauth
+@guest
+OUT
+@endguest
+@auth('api')
+API
+@endauth

@@ -81,6 +81,14 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   `AppServiceProvider`, `config/view.php` e `seo.*`, `post-create-project-cmd` portável (cria o SQLite, `key:generate`, `migrate`), testes
   Pest (Home, Contact, Api/Lead), `phpstan.neon` nível 6, `pint.json`, `AGENTS.md`, `README`, `LICENSE`. Framework: comando
   `ai:agents-file [--force]` e `stubs/AGENTS.md.stub`. Monorepo: `tests/Skeleton/CreateProjectTest.php` (grupo `slow`, `composer test:slow`).
+- Peça 12 — package `slendie/auth`: `AuthManager` (`guard()`, `extend()`, atalhos `user/check/guest/id/attempt/once/login/logout/viaRemember`),
+  `SessionGuard` (login com regeneração da sessão e do token CSRF, remember-me por cookie `id|token|hmac` assinada com a `APP_KEY` e com só o
+  sha256 na base de dados, logout que roda o token) e `TokenGuard` (Bearer → sha256 em `personal_access_tokens`, expiração, abilities,
+  `last_used_at` com intervalo de 1 minuto), `ModelUserProvider` (model configurável, fallback para o `User` do package, rehash automático),
+  traits `Authenticatable` e `HasApiTokens`, `Hasher` (bcrypt ou argon2id), middlewares `auth`, `guest` e `ability`, directivas
+  `@auth/@guest`, `redirect()->intended()`, `LoginController`/`LogoutController` com limitador de tentativas em ficheiros (429 + `Retry-After`),
+  views e traduções pt/en publicáveis, migrações `users` e `personal_access_tokens`, comandos `auth:install`, `make:user` e `auth:token`,
+  helpers `auth()` e `bcrypt()`. `docs/auth.md` e `packages/auth/README.md`; 89 testes Pest.
 
 ### Changed
 - `Application::VERSION` passa a `4.0.0`; `Handler::report()` delega no `Logger` (linha com milissegundos e a excepção por extenso).

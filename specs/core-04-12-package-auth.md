@@ -66,5 +66,38 @@ php slendie auth:install
 ## Fora de âmbito
 Reset de password por email (depende de mail), verificação de email, 2FA, OAuth/socialite, policies/gates (talvez `slendie/authz` depois), múltiplos providers.
 
+## Implementação
+- `packages/auth` completo: `AuthManager`, `SessionGuard`, `TokenGuard`, `ModelUserProvider`, `Hasher`, traits `Authenticatable` e
+  `HasApiTokens`, models `User` e `PersonalAccessToken`, middlewares `auth`/`guest`/`ability`, `LoginController`/`LogoutController`/
+  `LoginRequest`, comandos `auth:install`/`make:user`/`auth:token`, views, traduções pt/en, migrações, stub `User`, helpers e config.
+- Testes (Pest, 89): login/logout/throttle/intended, remember-me (incl. cookies forjadas e rotação), tokens (válido, expirado,
+  abilities, `last_used_at`), `actingAs`, directivas Blade, `Hasher` (bcrypt/argon2id), model customizado, `auth:install` /
+  `make:user` / `auth:token` em projectos temporários, overrides de views e traduções. `composer test/analyse/lint` verdes.
+- Documentação: `docs/auth.md`, `packages/auth/README.md`, `CHANGELOG.md`.
+
 ## Desvios
-(preencher na implementação)
+- **Middleware global `AuthenticationContext`** (não previsto): os guards não têm acesso à resposta, por isso as cookies remember-me ficam
+  em fila no guard e este middleware junta-as à resposta; também regista o resolver de `Request::user()` (o `Request::user()` do core não
+  recebe o guard, devolve o do guard activo: o último que autenticou via `auth:xxx`, senão `auth.defaults.guard`).
+- **`redirect()->intended()`**: o core não tem `intended()`; o package regista `AuthRedirector` (subclasse de `Redirector`) no binding
+  `Redirector`/`redirect`. Fica nomeado como `url.intended` na sessão (guardado só para pedidos GET).
+- **Throttle por email+IP** em vez de sessão+IP (a sessão descarta-se com um cookie novo). Ficheiros JSON em
+  `storage/framework/auth-throttle/{sha1}.json` (`Support\LoginThrottle`); janela fixa a contar da primeira falha. Excede → `HttpException(429)`
+  com `Retry-After` e a mensagem `auth::auth.throttle`.
+- **Remember token**: `users.remember_token` guarda o sha256 (e não o valor da cookie); só existe um por utilizador, logo um novo login com
+  "lembrar-me" invalida a cookie do dispositivo anterior. O logout roda sempre o token e envia a cookie expirada.
+- **Estado por pedido**: os guards são singletons mas esquecem o utilizador quando o `Request` muda (`Guards\BindsToRequest`), excepto o fixado
+  por `setUser()`/`actingAs()` (e o `login()` sem sessão, p.ex. na consola). Sem isto, nos testes um pedido herdava o login do anterior.
+- **`auth` em pedidos sem sessão** (grupo `api`) responde `401` JSON mesmo sem `Accept: application/json`; com sessão, redirecciona.
+- **`ability` e sessão**: utilizadores autenticados por sessão (sem token) passam em `ability:` (acesso total do painel); `tokenCan()` no model é
+  estrito (falso sem token).
+- **Tabela `personal_access_tokens`** usa `user_id` (sem *morph*): um só tipo de utilizador por aplicação. Token em claro: `{id}|{segredo}`; o
+  `TokenGuard` aceita também só o segredo.
+- **Migrações** com `Schema::hasTable()` no `up()`: existem no package (`loadMigrationsFrom`) e publicadas; sem o guard, `migrate` falharia por
+  tabela duplicada. `auth:install` publica com `--tag auth-config,auth-migrations,auth-model`; `--no-migrate` e `--force` extra.
+- `AuthManager::provider()` público (usado por `make:user` e `auth:token`); `auth()` sem argumentos devolve o `AuthManager`.
+- O cast `'password' => 'hashed'` da documentação inicial não existe no `Model` do core: o hash faz-se no mutator do trait `Authenticatable`
+  (`setPasswordAttribute`); `docs/auth.md` actualizado.
+- `LoginController` devolve `withInput(['email' => …])` em vez de `onlyInput('email')` (o `RedirectResponse` do core não tem `onlyInput`).
+- `PasswordResetController` e `Events` não foram criados (fora de âmbito, como na spec).
+- Monorepo: `slendie/auth` entra em `require-dev` do `composer.json` raiz e `Slendie\Auth\Tests\` em `autoload-dev`.

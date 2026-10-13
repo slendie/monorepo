@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1de1eb0908f8303b7d012623b4ffa487",
+    "content-hash": "c33597fe03a0027a00adf6608f63ac1c",
     "packages": [
         {
             "name": "slendie/framework",
@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "framework",
-                "reference": "2393027103139f64305f4b54d1dc7ea2866aa431"
+                "reference": "0d6b28520d2c650805575b6f1dac66cca47b6f32"
             },
             "require": {
                 "ext-json": "*",
@@ -29,6 +29,7 @@
                 "ext-pdo_mysql": "Suporte a MySQL/MariaDB",
                 "ext-pdo_pgsql": "Suporte a PostgreSQL",
                 "ext-pdo_sqlite": "Base de dados por defeito",
+                "pestphp/pest": "Testes das aplicações: Slendie\\Testing\\TestCase, TestResponse, RefreshDatabase",
                 "slendie/auth": "Autenticação por sessão e tokens",
                 "slendie/react-admin": "Painel de leads em React"
             },
@@ -3275,6 +3276,61 @@
             "time": "2026-10-04T05:50:08+00:00"
         },
         {
+            "name": "slendie/auth",
+            "version": "dev-feature/v4-package-auth",
+            "dist": {
+                "type": "path",
+                "url": "packages/auth",
+                "reference": "1071267c3f5d99cdbde80efcbbab0d7b9ef2b79a"
+            },
+            "require": {
+                "php": "^8.5",
+                "slendie/framework": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "slendie": {
+                    "providers": [
+                        "Slendie\\Auth\\AuthServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Slendie\\Auth\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Slendie\\Auth\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luciano Closs",
+                    "email": "lcloss@gmail.com"
+                }
+            ],
+            "description": "Autenticação para a Slendie: login por sessão, remember-me, tokens de API, middlewares auth/guest, @auth/@guest.",
+            "keywords": [
+                "auth",
+                "authentication",
+                "login",
+                "slendie",
+                "tokens"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "staabm/side-effects-detector",
             "version": "1.0.5",
             "source": {
@@ -4401,6 +4457,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "slendie/auth": 20,
         "slendie/framework": 20
     },
     "prefer-stable": true,

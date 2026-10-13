@@ -53,9 +53,6 @@ packages/*/node_modules/
 *.sqlite3
 *.db
 
-# Framework packages
-packages/
-
 # Logs
 *.log
 logs/
