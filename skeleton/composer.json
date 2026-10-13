@@ -32,8 +32,10 @@
         ],
         "post-create-project-cmd": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php slendie key:generate --ansi",
-            "@php slendie migrate --force --ansi"
+            "@php slendie migrate --force --ansi",
+            "@php -r \"echo PHP_EOL.'Pronto! Corre: php slendie serve  (http://127.0.0.1:8000)'.PHP_EOL;\""
         ],
         "test": "pest",
         "analyse": "phpstan analyse",

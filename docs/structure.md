@@ -5,8 +5,8 @@ meu-site/
 ├── app/
 │   ├── Console/Commands/        # comandos próprios (descobertos automaticamente)
 │   ├── Http/
-│   │   ├── Controllers/         # controllers (namespace App\Http\Controllers)
-│   │   ├── Middleware/          # middlewares da aplicação
+│   │   ├── Controllers/         # controllers (namespace App\Http\Controllers); Api/LeadController para a API
+│   │   ├── Middleware/          # middlewares da aplicação (VerifyApiToken protege /api/leads)
 │   │   └── Requests/            # FormRequests (validação)
 │   ├── Models/                  # models (App\Models)
 │   └── Providers/               # AppServiceProvider e outros
@@ -20,7 +20,7 @@ meu-site/
 │   ├── seeders/
 │   └── database.sqlite          # BD por defeito (gitignored)
 ├── public/                      # document root: index.php, .htaccess, css/, js/, img/
-├── resources/views/             # templates .blade.php
+├── resources/views/             # templates .blade.php: layouts/, partials/ (head, nav, footer, flash), errors/ (404, 500)
 ├── routes/
 │   ├── web.php                  # rotas com sessão e CSRF (grupo web)
 │   ├── api.php                  # rotas JSON, prefixo /api (grupo api)

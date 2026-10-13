@@ -19,6 +19,9 @@ return [
 
     'key' => env('APP_KEY'),
 
+    /* Token Bearer da API /api/leads. Vazio = API desactivada (503). */
+    'api_token' => env('API_TOKEN', ''),
+
     /* TrimStrings: '' vira null no input. */
     'convert_empty_strings_to_null' => true,
 
@@ -30,8 +33,13 @@ return [
         'Permissions-Policy' => 'camera=(), microphone=(), geolocation=()',
     ],
 
-    /* Providers da aplicação (os da framework são registados automaticamente). */
-    'providers' => [
-        // App\Providers\AppServiceProvider::class,
+    /* SEO e partilha social (meta description, Open Graph). */
+    'seo' => [
+        'title' => env('SEO_TITLE', 'Slendie — a tua landing page no ar em minutos'),
+        'description' => env('SEO_DESCRIPTION', 'Landing page leve, rápida e sem Node. Recolhe contactos com validação e protecção anti-spam.'),
+        'image' => env('SEO_IMAGE', ''),
     ],
+
+    /* Providers da aplicação (os da framework são registados automaticamente). */
+    'providers' => [],
 ];

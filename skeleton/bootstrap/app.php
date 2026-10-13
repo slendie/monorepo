@@ -12,6 +12,7 @@ return (new Application(dirname(__DIR__)))
         api: __DIR__.'/../routes/api.php',
     )
     ->withMiddleware(function (Kernel $kernel): void {
+        $kernel->aliasMiddleware('api.token', App\Http\Middleware\VerifyApiToken::class);
         // $kernel->pushMiddleware(App\Http\Middleware\MeuMiddleware::class);
         // $kernel->appendMiddlewareToGroup('web', App\Http\Middleware\MeuMiddleware::class);
     })

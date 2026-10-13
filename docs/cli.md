@@ -31,6 +31,7 @@ php slendie migrate -v       # verboso; -q silencioso; --no-interaction; --no-an
 | `vendor:publish [--tag=] [--provider=] [--all] [--force]` | Publica ficheiros de packages |
 | `package:discover` | Regenera a cache de providers descobertos (chega com os packages, peça 09) |
 | `ai:context [routes\|schema\|config\|info\|all] [--json]` | Contexto do projecto para agentes de IA (peça 09) |
+| `ai:agents-file [--force]` | Escreve o `AGENTS.md` (o que a framework tem e não tem) a partir de `AGENTS.md.stub` (peça 11) |
 | `list` / `help <cmd>` | |
 
 Em produção (`APP_ENV=production`), comandos destrutivos pedem confirmação ou `--force`. Sem terminal (CI, pipe) a

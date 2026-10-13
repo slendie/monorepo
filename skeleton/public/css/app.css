@@ -1,12 +1,120 @@
 /*
- * CSS base do site. O skeleton não depende de Node: edita este ficheiro à vontade.
+ * CSS do site. O skeleton não depende de Node: edita este ficheiro à vontade.
  * (Para usar Vite, ver docs/vite.md — o layout passa a usar @vite sozinho quando existe public/build/manifest.json.)
  */
 :root {
     color-scheme: light dark;
+    --bg: #ffffff;
+    --bg-alt: #f1f5f9;
+    --texto: #0f172a;
+    --suave: #475569;
+    --borda: #cbd5e1;
+    --primaria: #4338ca;
+    --primaria-texto: #ffffff;
+    --erro: #b91c1c;
+    --ok: #166534;
+    --raio: .5rem;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0b1120;
+        --bg-alt: #111a2e;
+        --texto: #f1f5f9;
+        --suave: #a8b3c7;
+        --borda: #334155;
+        --primaria: #818cf8;
+        --primaria-texto: #0b1120;
+        --erro: #fca5a5;
+        --ok: #86efac;
+    }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
     margin: 0;
-    font: 16px/1.5 system-ui, sans-serif;
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--texto);
 }
+
+h1, h2 { line-height: 1.2; margin: 0 0 .75rem; }
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+h2 { font-size: 1.5rem; }
+p { margin: 0 0 1rem; }
+a { color: var(--primaria); }
+code { background: var(--bg-alt); padding: .1em .35em; border-radius: .25rem; }
+
+.container { width: min(100% - 2rem, 62rem); margin-inline: auto; }
+
+/* Acessibilidade */
+.salto {
+    position: absolute; left: -999px; top: 0; padding: .5rem 1rem;
+    background: var(--primaria); color: var(--primaria-texto); z-index: 10;
+}
+.salto:focus { left: 0; }
+:focus-visible { outline: 3px solid var(--primaria); outline-offset: 2px; }
+
+/* Topo */
+.topo { border-bottom: 1px solid var(--borda); }
+.nav { display: flex; align-items: center; justify-content: space-between; padding-block: .75rem; }
+.marca { font-weight: 700; font-size: 1.15rem; text-decoration: none; color: var(--texto); }
+
+/* Botões */
+.botao {
+    display: inline-block; padding: .75rem 1.5rem; border: 0; border-radius: var(--raio);
+    background: var(--primaria); color: var(--primaria-texto); font: inherit; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+}
+.botao:hover { filter: brightness(1.1); }
+.botao-pequeno { padding: .4rem 1rem; }
+
+/* Hero */
+.hero { background: var(--bg-alt); padding-block: clamp(3rem, 10vw, 6rem); }
+.destaque { color: var(--primaria); }
+.lead { font-size: 1.2rem; color: var(--suave); max-width: 40rem; }
+
+/* Benefícios */
+.beneficios {
+    display: grid; gap: 1.5rem; padding-block: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.beneficios p { color: var(--suave); margin: 0; }
+
+/* Formulário */
+.contacto { padding-block: 2rem 4rem; max-width: 38rem; }
+.campo { margin-bottom: 1rem; }
+label { display: block; font-weight: 600; margin-bottom: .25rem; }
+small { font-weight: 400; color: var(--suave); }
+input[type="text"], input[type="email"], input[type="tel"], textarea {
+    width: 100%; padding: .65rem .75rem; font: inherit; color: inherit;
+    background: var(--bg); border: 1px solid var(--borda); border-radius: var(--raio);
+}
+.campo-check { display: flex; gap: .5rem; align-items: baseline; }
+.campo-check label { font-weight: 400; margin: 0; }
+.erro { color: var(--erro); font-size: .9rem; margin: .25rem 0 0; }
+.estado { margin: 1rem 0 0; min-height: 1.5rem; }
+.estado.ok { color: var(--ok); }
+.estado.falhou { color: var(--erro); }
+
+/* Honeypot: fora do ecrã (não display:none, para os robots o preencherem) */
+.armadilha { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Avisos */
+.aviso { margin: 1rem 0 0; padding: .75rem 1rem; border-radius: var(--raio); border: 1px solid currentColor; }
+.aviso-ok { color: var(--ok); }
+.aviso-erro { color: var(--erro); }
+
+/* Páginas de texto */
+.pagina { padding-block: 3rem; }
+.centro { text-align: center; }
+.centro .lead { margin-inline: auto; }
+.texto { max-width: 44rem; }
+.texto h2 { margin-top: 2rem; font-size: 1.25rem; }
+
+/* Rodapé */
+.rodape { border-top: 1px solid var(--borda); color: var(--suave); font-size: .9rem; }
+.rodape-conteudo { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; padding-block: 1.5rem; }
+.rodape p { margin: 0; }
+.rodape nav { display: flex; gap: 1rem; }

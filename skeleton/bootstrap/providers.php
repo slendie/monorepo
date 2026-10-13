@@ -7,5 +7,5 @@ declare(strict_types=1);
 | `php slendie make:provider NomeProvider` acrescenta aqui o novo provider.
 */
 return [
-    //
+    App\Providers\AppServiceProvider::class,
 ];
