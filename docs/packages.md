@@ -102,6 +102,34 @@ final class BlogServiceProvider extends ServiceProvider
 Depois de `composer require acme/blog` o provider é **descoberto automaticamente** (via `vendor/composer/installed.json`;
 cache em `bootstrap/cache/packages.php`, regenerada no `post-autoload-dump`). Nada a editar no projecto.
 
+### Descoberta, cache e exclusões
+
+- `php slendie package:discover` lê `vendor/composer/installed.json` e escreve `bootstrap/cache/packages.php`
+  (lista "Discovered Package: acme/blog"). O skeleton corre-o no `post-autoload-dump`, por isso `composer require` basta.
+- Sem cache, a descoberta faz-se em runtime (custa ler um JSON). `php slendie about` mostra os packages descobertos.
+- `extra.slendie.aliases` (`{"Blog": "Acme\Blog\Facade"}`) cria `class_alias` no arranque.
+- Excluir: no `composer.json` do **projecto**, `"extra": {"slendie": {"dont-discover": ["acme/blog"]}}` (ou `["*"]` para todos).
+  Depois de mudar, volta a correr `package:discover`.
+- Ordem de registo: providers da framework → packages descobertos → `bootstrap/providers.php` → `config('app.providers')`.
+
+### Helpers do `ServiceProvider`
+
+| Método | O que faz |
+|---|---|
+| `mergeConfigFrom($path, 'blog')` | defaults do package; o projecto vence. **Merge raso** (1.º nível, como no Laravel): se o projecto define `blog.options`, substitui o array inteiro |
+| `loadRoutesFrom($path, $attrs = ['middleware' => 'web'])` | carrega as rotas num grupo, depois do arranque |
+| `loadViewsFrom($path, 'blog')` | `view('blog::x')`; `resources/views/vendor/blog` do projecto tem prioridade |
+| `loadMigrationsFrom($paths)` | `migrate` e restantes comandos passam a ver estas pastas |
+| `loadTranslationsFrom($path, 'blog')` | `__('blog::m.k')`; override em `lang/vendor/blog/{locale}` |
+| `publishes($map, $tags)` | `vendor:publish --tag=...` copia (nunca substitui sem `--force`) |
+| `publishesMigrations($map, $tags)` | como `publishes`, mas o timestamp de cada migração passa a "agora" (e republicar não duplica) |
+| `commands([...])` | comandos de consola (só em CLI) |
+| `callAfterResolving(X::class, fn ($x) => ...)` | corre quando `X` é criado (ou já, se existir); ideal para directivas Blade |
+| `$this->router()` / `$this->blade()` | atalhos para o `Router` e o `BladeCompiler` |
+
+`Blade::if('admin', fn () => ...)` cria `@admin … @elseadmin … @else … @endadmin` e passa os argumentos da directiva
+(`@role('editor')` → `fn (string $name)`).
+
 ## O que o projecto pode sobrepor
 
 | Recurso do package | Override no projecto |
@@ -152,7 +180,7 @@ protected bool $defer = true;
 public function provides(): array { return [PostRepository::class]; }
 ```
 
-Só regista quando alguém pede `PostRepository`.
+Só regista quando alguém pede `PostRepository` (ou quando se declara à mão com `$app->addDeferredServices([...])`).
 
 ## Publicar no Packagist
 

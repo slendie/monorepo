@@ -8,6 +8,18 @@ Tornar a framework extensível: um package Composer com `extra.slendie.providers
 registar rotas, views (com namespace), migrações, directivas Blade, middlewares, comandos, config e publicar ficheiros.
 Também fecha pontas soltas do core: `Vite` + `@vite`, `Logger`, `ai:context`.
 
+## Implementação
+O que ficou feito
+- Descoberta de packages: `PackageDiscovery` lê `vendor/composer/installed.json` e respeita `dont-discover` por nome ou *. O comando `package:discover` escreve `bootstrap/cache/packages.php` e `RegisterProviders` junta os providers descobertos aos da framework e do projecto.
+- `ServiceProvider`: passaram a funcionar `loadRoutesFrom`, `loadViewsFrom` (com override em `resources/views/vendor/{ns}`), `loadMigrationsFrom`, `loadTranslationsFrom` (override em `lang/vendor/{ns}`) e `publishesMigrations`. Os providers adiados já existiam; juntei `router()`, `blade()`, `registerConfiguredProviders()` e `addDeferredServices()`.
+- Blade: `Blade::if()` cria `@nome`, `@elsenome` e `@endnome`.
+- Vite: Support\Vite com modo dev (public/hot) e modo build (manifest, modulepreload, nonce, asset, content, reactRefresh). Ligado a `@vite`, `@viteReactRefresh` e ao helper `vite()`.
+- Logger: canais `single`, `daily` (com limpeza dos ficheiros antigos), `stderr`, `null` e `stack`, mais `extend`, facade `Log` e helpers `logger()` e `report()`. `Handler::report()` passa a usar o Logger. A versão da framework passa a `4.0.0`.
+- Comandos: `ai:context` (--`json`, config sem segredos) e package:discover são novos. about lista os packages e vendor:publish renomeia as migrações publicadas.
+- Skeleton sem Node: `public/css/app.css`, `public/js/app.js`, `config/logging.php`, `bootstrap/cache/.gitignore`, e o layout só usa `@vite` se existir `public/build/manifest.json` ou `public/hot`. Verifiquei os dois modos a renderizar.
+- Testes: package fictício `acme-blog` ponta a ponta, mais testes de Vite, Logger e ai:context.
+- Docs: `docs/logging.md` é novo, e actualizei `packages.md`, `vite.md`, `ai-agents.md`, `errors.md`, `CHANGELOG.md` e a secção "Desvios" da spec.
+
 ## Ficheiros a criar / completar (`framework/src/`)
 - `Foundation/PackageDiscovery.php`
   - `discover(string $vendorPath): array{providers: string[], aliases: array, dont-discover: string[]}` — lê `vendor/composer/installed.json` (formato `packages` array, Composer 2) e, para cada package, `extra.slendie.providers` e `extra.slendie.aliases`; respeita `extra.slendie.dont-discover` do `composer.json` do **projecto** (lista de package names ou `*`)
@@ -35,7 +47,7 @@ Também fecha pontas soltas do core: `Vite` + `@vite`, `Logger`, `ai:context`.
   - directivas `@vite(...)` → `<?php echo app(Vite::class)(...); ?>` e `@viteReactRefresh` → `reactRefresh()`; registadas no `ViewServiceProvider` (substituir stub da peça 03); helper `vite(...)` opcional
 - `Log/Logger.php` + `Log/LogServiceProvider.php` + facade `Log`
   - PSR-3-like sem a dependência (`emergency..debug(string|Stringable $message, array $context = [])`, `log(level, …)`); interpolação `{key}` do contexto; linha `[Y-m-d H:i:s.v] {env}.{LEVEL}: {message} {context_json}`; excepções no contexto (`['exception' => $e]`) imprimem classe, mensagem, ficheiro:linha e trace
-  - canais: `single` (`storage/logs/slendie.log`), `daily` (`slendie-Y-m-d.log`, `days` para gc), `stderr`, `null`, `stack`(lista); `config/logging.php` (`default`, `channels`); `Log::channel('x')`; `Logger::extend(driver, Closure)`
+  - canais: `single` (`storage/logs/slendie.log`), `daily` (`slendie-Y-m-d.log`, `days` para gc), ``stderr``,` ``null``, `st`ack`(li`sta); ``config/l`ogg`ing.php` (``default`,` `c`hannels``);` `Log::channel('x`')`; `Logger::extend(driver, Closure)`
   - `Handler::report()` usa `Log::error($e->getMessage(), ['exception' => $e])`
   - `report(Throwable)` helper, `logger(?message, context)` helper (sem args devolve Logger), `info()` **não**
 - `Console/Commands/PackageDiscoverCommand` — `package:discover`: escreve `bootstrap/cache/packages.php` e lista "Discovered Package: slendie/auth"
@@ -70,4 +82,20 @@ Um package fictício com `composer.json` (`extra.slendie.providers`), provider q
 - `composer test/analyse/lint` verdes; `docs/packages.md` (criar um package passo a passo, publicar no Packagist), `docs/vite.md`, `docs/logging.md`, `docs/ai-agents.md` (`ai:context`, `AGENTS.md`).
 
 ## Desvios
-(preencher na implementação)
+- `PackageDiscovery::discover()` devolve também `packages` (`nome => providers`), usado por `package:discover`, `about` e `ai:context`.
+  `load()`/`write()`/`clear()` tratam do cache. O `composer.json` do projecto lê-se em `dirname($vendorPath)`.
+- `Vite::__construct`: `$hotFile` é `?string` (caminho absoluto; por omissão `{publicPath}/hot`) em vez de `'public/hot'`. Acrescentados
+  `resolveAssetUrlUsing()` (CDN/subpasta), `cspNonce()` e suporte a `public/build/.vite/manifest.json`. Entradas inexistentes no
+  manifest lançam `ViteException` (a falta do manifest lança `ViteManifestNotFoundException`, subclasse). `@vite` continua a exigir
+  expressão (já era assim na peça 03); `vite()` sem argumentos usa `withEntryPoints()`.
+- `ServiceProvider::loadRoutesFrom()` corre depois do arranque (`Application::booted`), para funcionar tanto em `register()` como em `boot()`.
+  `loadViewsFrom/MigrationsFrom/TranslationsFrom` usam `callAfterResolving` (Finder, Migrator, Translator) em vez de `View\Factory`.
+- A directiva do fixture chama-se `@acmeName` (não `@acme`) porque `Blade::if('acme')` já cria `@acme/@elseacme/@endacme`.
+- `Blade::if` guarda as condições num array estático (`BladeCompiler::check()` é chamado pelo PHP compilado); `flushConditions()` para testes.
+- `Logger`: o `Closure` de `extend()` devolve um `callable(string $line, string $level)` ou objecto com `write()`; `level` por canal
+  filtra; `Logger::format()` público. A framework regista `LogServiceProvider` e traz `config/logging.php` (`default` = `single`; o
+  skeleton usa `daily`). `Handler::report()` cai num `Logger` por omissão se o provider não estiver registado.
+- `ai:context` sem secção equivale a `all`; sem DB acessível `schema` fica `[]`. A sanitização cobre também `SECRET`/`TOKEN` (e ignora booleanos,
+  p.ex. `foreign_key_constraints`). `AGENTS.md` e `ai:agents-file` ficam para a peça 11 (skeleton).
+- `VendorPublishCommand` reconhece `publishesMigrations` (ordem preservada com +1 s por ficheiro; não duplica migrações já publicadas).
+- Fixtures: `framework/tests/Fixtures/packages/acme-blog`; os testes criam um `vendor/composer/installed.json` num projecto temporário.

@@ -53,8 +53,19 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   `Request::validate()/validator()`, `Translator` (fallback de locale, override pelo projecto, `choice`, namespaces de packages),
   textos pt-PT e en, helpers `__`/`trans`/`trans_choice`/`validator`, `make:request`, `vendor:publish --tag=slendie-lang`,
   `ContactController` no skeleton, `docs/validation.md` e `docs/localization.md`.
+- Peça 09 — packages, Vite, logging e `ai:context`: `PackageDiscovery` (`vendor/composer/installed.json`, `extra.slendie.providers|aliases`,
+  `dont-discover` por nome ou `*`, cache em `bootstrap/cache/packages.php` via `package:discover`), `ServiceProvider` completo
+  (`loadRoutesFrom`, `loadViewsFrom` com override em `resources/views/vendor/{ns}`, `loadMigrationsFrom`, `loadTranslationsFrom` com
+  override em `lang/vendor/{ns}`, `publishesMigrations`, `router()`, `blade()`), `Application::registerConfiguredProviders()` e
+  `addDeferredServices()`, `Blade::if()`, `Support\Vite` (hot/build, preload, nonce, `asset`, `content`, `reactRefresh`) com
+  `@vite`/`@viteReactRefresh`/`vite()`, `Logger` (PSR-3 sem dependência; canais `single|daily|stderr|null|stack`, `extend`, níveis mínimos,
+  gc dos logs diários), facade `Log`, helpers `logger()`/`report()`, `config/logging.php`, comandos `package:discover` e `ai:context`
+  (`--json`, config sanitizada), `about` lista os packages, `VendorPublishCommand` renomeia migrações publicadas; skeleton sem Node
+  (`public/css/app.css`, `public/js/app.js`, layout com `@vite` condicional, `config/logging.php`, `bootstrap/cache/.gitignore`);
+  `docs/logging.md`, e actualizações em `docs/packages.md`, `docs/vite.md` e `docs/ai-agents.md`.
 
 ### Changed
+- `Application::VERSION` passa a `4.0.0`; `Handler::report()` delega no `Logger` (linha com milissegundos e a excepção por extenso).
 - `Router::toResponse()` renderiza as views dentro do pipeline (excepções e `abort()` em views passam pelo `Handler`; `old()`/flash
   funcionam durante o render).
 - `Contracts\ViewFactory` ganha `exists()`; `ShareErrorsFromSession` partilha `$errors` como `Validation\MessageBag` (o `ViewErrorBag` desaparece).

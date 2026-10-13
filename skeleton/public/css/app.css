@@ -1,0 +1,12 @@
+/*
+ * CSS base do site. O skeleton não depende de Node: edita este ficheiro à vontade.
+ * (Para usar Vite, ver docs/vite.md — o layout passa a usar @vite sozinho quando existe public/build/manifest.json.)
+ */
+:root {
+    color-scheme: light dark;
+}
+
+body {
+    margin: 0;
+    font: 16px/1.5 system-ui, sans-serif;
+}
