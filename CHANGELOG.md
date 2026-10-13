@@ -74,6 +74,13 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   `swap()/instance()`, ganchos de `actingAs()` para o package auth e `FakeUploadedFile`. Skeleton com `phpunit.xml`, `tests/Pest.php`,
   `tests/TestCase.php` e testes de `Home` e `Contact`. Cobertura do core a 93 % (mínimo 80 %), PHPStan nível 8 sem baseline nem
   `ignoreErrors`, Pint limpo, benchmark informativo em `framework/tests/bench` e `docs/performance.md`.
+- Peça 11 — skeleton `slendie/slendie`: landing page (hero, benefícios, formulário) com CSS/JS próprios (sem Node, dark mode, envio por
+  `fetch` com fallback), `StoreLeadRequest` (honeypot `website`, consentimento RGPD), `Lead` (scopes `status`/`new`/`search`, `initials`,
+  `Lead::filtered()`), `ContactController` (redirect para `/obrigado` ou 201 JSON), páginas `obrigado`/`privacidade`/`termos`, 404/500 com o
+  layout do site, API `/api/leads` (index/show/update/destroy) protegida por `VerifyApiToken` (Bearer, 503 se `API_TOKEN` vazio),
+  `AppServiceProvider`, `config/view.php` e `seo.*`, `post-create-project-cmd` portável (cria o SQLite, `key:generate`, `migrate`), testes
+  Pest (Home, Contact, Api/Lead), `phpstan.neon` nível 6, `pint.json`, `AGENTS.md`, `README`, `LICENSE`. Framework: comando
+  `ai:agents-file [--force]` e `stubs/AGENTS.md.stub`. Monorepo: `tests/Skeleton/CreateProjectTest.php` (grupo `slow`, `composer test:slow`).
 
 ### Changed
 - `Application::VERSION` passa a `4.0.0`; `Handler::report()` delega no `Logger` (linha com milissegundos e a excepção por extenso).

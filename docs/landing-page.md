@@ -47,16 +47,17 @@ php slendie migrate
 
 ```php
 // routes/web.php
-Route::view('/', 'home')->name('home');
-Route::post('/contacto', ContactController::class)->name('contact.store');
-Route::view('/obrigado', 'thanks')->name('thanks');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/obrigado', [HomeController::class, 'thanks'])->name('thanks');
+Route::view('/privacidade', 'privacy')->name('privacy');
 ```
 
 ## 4. Validação e controller
 
 ```bash
 php slendie make:request StoreLeadRequest
-php slendie make:controller ContactController --invokable
+php slendie make:controller ContactController
 ```
 
 ```php
@@ -77,12 +78,16 @@ final class StoreLeadRequest extends FormRequest
 
 final class ContactController extends Controller
 {
-    public function __invoke(StoreLeadRequest $request): RedirectResponse|JsonResponse
+    public function store(StoreLeadRequest $request): RedirectResponse|JsonResponse
     {
-        $lead = Lead::create($request->validated() + ['source' => 'landing', 'ip' => $request->ip()]);
+        $lead = Lead::create([
+            ...$request->safe()->only('name', 'email', 'phone', 'message'),
+            'source' => 'landing',
+            'ip' => $request->ip(),
+        ]);
 
         if ($request->expectsJson()) {
-            return response()->json(['id' => $lead->id], 201);
+            return response()->json(['message' => 'Obrigado!', 'id' => $lead->id], 201);
         }
 
         return redirect()->route('thanks')->with('success', 'Obrigado! Entramos em contacto em breve.');
@@ -127,7 +132,7 @@ final class ContactController extends Controller
 
 ```php
 it('grava um lead', function () {
-    $this->post('/contacto', ['name' => 'Ana', 'email' => 'ana@x.pt', 'consent' => '1'])
+    $this->post('/contact', ['name' => 'Ana', 'email' => 'ana@x.pt', 'consent' => '1'])
         ->assertRedirect('/obrigado');
     $this->assertDatabaseHas('leads', ['email' => 'ana@x.pt', 'status' => 'new']);
 })->uses(RefreshDatabase::class);
