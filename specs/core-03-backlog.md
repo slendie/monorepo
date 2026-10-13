@@ -22,15 +22,15 @@
 
 | # | Peça | Spec | Entrega | Depende de | Estado |
 |---|---|---|---|---|---|
-| 11 | Skeleton `slendie/slendie`: estrutura completa, landing page + formulário de contacto + `Lead`, CLI `slendie`, `.env.example`, `bin/setup`, `AGENTS.md`, README | `core-04-11-skeleton.md` | `composer create-project` → `php slendie serve` → landing funcional e lead gravado | 01–10 | ⬜ |
+| 11 | Skeleton `slendie/slendie`: estrutura completa, landing page + formulário de contacto + `Lead`, CLI `slendie`, `.env.example`, `bin/setup`, `AGENTS.md`, README | `core-04-11-skeleton.md` | `composer create-project` → `php slendie serve` → landing funcional e lead gravado | 01–10 | ✅ 2026-10-13 (core 1379 testes; projecto criado: 20 testes, PHPStan 6, Pint) |
 | 12 | Package `slendie/auth`: AuthManager, SessionGuard, TokenGuard (API), model `User`, migrações, middlewares `auth`/`guest`, views login/logout, `@auth/@guest`, `auth:install`, `make:user` | `core-04-12-package-auth.md` | `composer require slendie/auth && php slendie auth:install` protege `/admin` | 09, 11 | ✅ 2026-10-13 (1468 testes, 45 skipped sem MySQL/PostgreSQL; PHPStan 8, Pint) |
-| 13 | Package `slendie/react-admin`: Vite + React + painel de leads (lista, filtro, detalhe, estado), consome `/api/leads`, `react-admin:install` | `core-04-13-package-react-admin.md` | `npm run dev` → painel em `/admin` autenticado | 11, 12 | ⬜ |
+| 13 | Package `slendie/react-admin`: Vite + React + painel de leads (lista, filtro, detalhe, estado), consome `/api/leads`, `react-admin:install` | `core-04-13-package-react-admin.md` | `npm run dev` → painel em `/admin` autenticado | 11, 12 | ✅ 2026-10-14 (6 testes vitest + testes PHP; `tsc`, `vite build` ok; fluxo no browser não exercitado) |
 
 ## Fase 3 — Publicação
 
 | # | Peça | Entrega | Estado |
 |---|---|---|---|
-| 14 | Split do monorepo em 4 repositórios GitHub, submissão ao Packagist, webhooks, tags `v4.0.0` | `composer create-project slendie/slendie` funciona a partir do Packagist | ⬜ |
+| 14 | (spec: `core-04-14-publicacao.md`) Split do monorepo em 4 repositórios GitHub, submissão ao Packagist, webhooks, tags `v4.0.0` | `composer create-project slendie/slendie` funciona a partir do Packagist | 🟨 workflow de split feito; passos manuais por fazer |
 | 15 | Site de documentação a partir de `docs/` (slendie.lcloss.dev) | docs online | ⬜ |
 
 ## Regras para quem implementa uma peça

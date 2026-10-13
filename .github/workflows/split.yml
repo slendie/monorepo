@@ -1,0 +1,57 @@
+name: Split
+
+# Publica cada pasta do monorepo no seu repositório espelho (só de leitura).
+# Nunca se faz commit directo nos espelhos. Requer o secret SPLIT_TOKEN
+# (token com escrita em contents nos 4 espelhos).
+
+on:
+  push:
+    branches: [main]
+    tags: ['v4.*']
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force-push (só no primeiro split, quando o histórico do espelho diverge)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: split-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  split:
+    name: ${{ matrix.package.repo }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - { prefix: framework, repo: slendie/framework }
+          - { prefix: skeleton, repo: slendie/slendie }
+          - { prefix: packages/auth, repo: slendie/auth }
+          - { prefix: packages/react-admin, repo: slendie/react-admin }
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Split de ${{ matrix.package.prefix }}
+        id: split
+        run: echo "sha=$(git subtree split --prefix=${{ matrix.package.prefix }})" >> "$GITHUB_OUTPUT"
+
+      - name: Publicar no espelho
+        env:
+          TOKEN: ${{ secrets.SPLIT_TOKEN }}
+          REPO: ${{ matrix.package.repo }}
+          SHA: ${{ steps.split.outputs.sha }}
+          FORCE: ${{ inputs.force && '--force' || '' }}
+        run: |
+          set -euo pipefail
+          git remote add mirror "https://x-access-token:${TOKEN}@github.com/${REPO}.git"
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            git push $FORCE mirror "${SHA}:refs/tags/${GITHUB_REF_NAME}"
+          else
+            git push $FORCE mirror "${SHA}:refs/heads/main"
+          fi
