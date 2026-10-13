@@ -59,39 +59,6 @@ Excepções fora do `Kernel` (por exemplo em `public/index.php` antes do `handle
 
 ## Logging
 
-Por agora o `Handler::report()` escreve em `storage/logs/slendie.log`:
-
-```
-[2026-10-10 14:03:22] local.ERROR: mensagem {"exception":"RuntimeException","file":"...","line":12}
-#0 /caminho/App.php(10): ...
-```
-
-O `Logger` completo — facade `Log`, canais (`single`, `daily`, `stderr`, `stack`, `null`), `logger()` e `report($e)` — chega
-com a peça de packages/logging (`core-04-09`). A configuração e a API abaixo descrevem o alvo final:
-
-```php
-use Slendie\Support\Facades\Log;
-
-Log::info('Lead criado', ['id' => $lead->id]);
-Log::error('Falhou', ['exception' => $e]);
-Log::channel('stderr')->debug('x');
-logger()->warning('y');
-report($e);                               // regista sem interromper
-```
-
-Níveis: `emergency`, `alert`, `critical`, `error`, `warning`, `notice`, `info`, `debug`.
-
-### `config/logging.php`
-
-```php
-'default' => env('LOG_CHANNEL', 'daily'),
-'channels' => [
-    'single' => ['driver' => 'single', 'path' => storage_path('logs/slendie.log'), 'level' => 'debug'],
-    'daily'  => ['driver' => 'daily', 'path' => storage_path('logs/slendie.log'), 'days' => 14],
-    'stderr' => ['driver' => 'stderr'],
-    'stack'  => ['driver' => 'stack', 'channels' => ['daily', 'stderr']],
-    'null'   => ['driver' => 'null'],
-],
-```
-
-Packages podem adicionar drivers com `Log::extend('slack', fn ($config) => new SlackLogger($config))`.
+`Handler::report()` regista cada excepção (excepto `HttpException` e `ValidationException`) com o
+[`Logger`](logging.md): `Log::error($e->getMessage(), ['exception' => $e])`, no canal por omissão de `config/logging.php`
+(`storage/logs/slendie.log` ou um ficheiro por dia). Canais, `Log::extend()`, `logger()` e `report($e)` estão em [Logging](logging.md).

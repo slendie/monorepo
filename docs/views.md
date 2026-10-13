@@ -160,8 +160,8 @@ A view incluída recebe todas as variáveis da view pai mais as passadas.
 @inject('metrics', 'App\Services\Metrics')
 @dd($x)  @dump($x)
 
-@vite(['resources/js/app.js'])          {{-- ver vite.md; até à peça 09 o helper vite() devolve '' --}}
-@viteReactRefresh                       {{-- peça 09 --}}
+@vite(['resources/js/app.js'])          {{-- ver vite.md --}}
+@viteReactRefresh                       {{-- só em desenvolvimento (npm run dev) --}}
 ```
 
 CSS e JS dentro das views não são afectados: `@media`, `@import`, `@font-face`, `@keyframes`, `@supports`, `@charset`, `@page`,
