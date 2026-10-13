@@ -63,6 +63,17 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
   (`--json`, config sanitizada), `about` lista os packages, `VendorPublishCommand` renomeia migrações publicadas; skeleton sem Node
   (`public/css/app.css`, `public/js/app.js`, layout com `@vite` condicional, `config/logging.php`, `bootstrap/cache/.gitignore`);
   `docs/logging.md`, e actualizações em `docs/packages.md`, `docs/vite.md` e `docs/ai-agents.md`.
+- Peça 10 — testing: `Slendie\Testing\TestCase` (aplicação nova por teste em `APP_ENV=testing`, sessão em memória, CSRF desligado,
+  limpeza total no fim), pedidos HTTP sintéticos (`get/post/put/patch/delete/options/head`, variantes `*Json`, `call()`, cabeçalhos,
+  token, cookies, `withSession`, `from`, `followingRedirects`, `withoutMiddleware`, `withoutExceptionHandling`, uploads),
+  `TestResponse` com asserções de estado, redirects, cabeçalhos, cookies, corpo, views, JSON e sessão/erros de validação (com a
+  excepção e o excerto do corpo nas mensagens de falha), asserções de base de dados (`assertDatabaseHas/Missing/Count`,
+  `assertModelExists`, `assertSoftDeleted`, `seed`), traits `RefreshDatabase` (migra uma vez por processo + transacção por teste,
+  também em SQLite em memória), `DatabaseTransactions`, `DatabaseMigrations` e `WithoutMiddleware`, `console()` com
+  `PendingCommand` (`expectsOutput`, `expectsTable`, `expectsQuestion`, `expectsConfirmation`, `expectsChoice`),
+  `swap()/instance()`, ganchos de `actingAs()` para o package auth e `FakeUploadedFile`. Skeleton com `phpunit.xml`, `tests/Pest.php`,
+  `tests/TestCase.php` e testes de `Home` e `Contact`. Cobertura do core a 93 % (mínimo 80 %), PHPStan nível 8 sem baseline nem
+  `ignoreErrors`, Pint limpo, benchmark informativo em `framework/tests/bench` e `docs/performance.md`.
 
 ### Changed
 - `Application::VERSION` passa a `4.0.0`; `Handler::report()` delega no `Logger` (linha com milissegundos e a excepção por extenso).

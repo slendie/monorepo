@@ -57,4 +57,4 @@ jobs:
           DB_TEST_PGSQL_DSN: ${{ matrix.db == 'pgsql' && 'pgsql:host=127.0.0.1;port=5432;dbname=slendie_test' || '' }}
           DB_TEST_PGSQL_USER: postgres
           DB_TEST_PGSQL_PASS: postgres
-        run: composer test -- --colors=always
+        run: composer ${{ matrix.db == 'sqlite' && 'test:coverage' || 'test' }} -- --colors=always
