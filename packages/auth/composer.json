@@ -19,6 +19,7 @@
         "psr-4": { "Slendie\\Auth\\Tests\\": "tests/" }
     },
     "extra": {
+        "branch-alias": { "dev-main": "4.x-dev" },
         "slendie": {
             "providers": ["Slendie\\Auth\\AuthServiceProvider"]
         }

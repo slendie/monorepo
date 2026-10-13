@@ -1,0 +1,8 @@
+{
+    "resources/admin/main.tsx": {
+        "file": "assets/main-abc123.js",
+        "src": "resources/admin/main.tsx",
+        "isEntry": true,
+        "css": ["assets/main-abc123.css"]
+    }
+}
