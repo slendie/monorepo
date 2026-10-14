@@ -184,9 +184,20 @@ Só regista quando alguém pede `PostRepository` (ou quando se declara à mão c
 
 ## Publicar no Packagist
 
-1. Repositório Git público com `composer.json` válido e tag `v1.0.0`.
-2. Submeter em packagist.org → "Submit".
-3. Activar o webhook do GitHub para actualizações automáticas.
+Para um package de terceiros: repositório Git público com `composer.json` válido e uma tag (`v1.0.0`), "Submit" em
+packagist.org e webhook do GitHub para actualizações automáticas.
+
+Os packages oficiais (`slendie/framework`, `slendie/slendie`, `slendie/auth`, `slendie/react-admin`) seguem outro fluxo,
+a partir do monorepo:
+
+1. O workflow `.github/workflows/split.yml` corre `git subtree split` por pasta em cada push para `main` e publica o
+   resultado no repositório espelho (só de leitura) correspondente. Usa o secret `SPLIT_TOKEN` (PAT com
+   `Contents: Read and write` nos 4 espelhos).
+2. Uma tag `v4.*` no monorepo (`git tag v4.0.0 && git push origin v4.0.0`) cria a mesma tag nos 4 espelhos.
+3. Cada espelho tem o webhook do Packagist activo, por isso as versões aparecem sozinhas. O monorepo nunca é publicado.
+4. Os packages exigem `slendie/framework ^4.0`: a tag da framework tem de estar no Packagist antes das dos restantes.
+   Se o `create-project` falhar nos primeiros minutos, repete depois do *Update* da framework.
+5. Issues e pull requests abrem-se sempre no monorepo.
 
 ## Package de referência
 

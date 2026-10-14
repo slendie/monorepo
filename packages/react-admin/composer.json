@@ -4,9 +4,14 @@
     "type": "library",
     "license": "MIT",
     "keywords": ["slendie", "admin", "react", "vite", "dashboard", "leads"],
+    "homepage": "https://slendie.lcloss.dev",
     "authors": [
         { "name": "Luciano Closs", "email": "lcloss@gmail.com" }
     ],
+    "support": {
+        "issues": "https://github.com/slendie/monorepo/issues",
+        "source": "https://github.com/slendie/react-admin"
+    },
     "require": {
         "php": "^8.5",
         "slendie/framework": "^4.0",
@@ -19,6 +24,7 @@
         "psr-4": { "Slendie\\ReactAdmin\\Tests\\": "tests/" }
     },
     "extra": {
+        "branch-alias": { "dev-main": "4.x-dev" },
         "slendie": {
             "providers": ["Slendie\\ReactAdmin\\ReactAdminServiceProvider"]
         }

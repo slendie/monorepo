@@ -1,5 +1,8 @@
 # Slendie
 
+> Repositório **espelho só de leitura**, gerado a partir de [`slendie/monorepo`](https://github.com/slendie/monorepo) (pasta `skeleton/`).
+> Issues e pull requests: no monorepo.
+
 Landing page leve com formulário de contacto, feita com a [Slendie](https://slendie.lcloss.dev) — um "Laravel light" em PHP, sem Node.
 O formulário valida no servidor, tem honeypot e consentimento RGPD, e grava cada contacto como `Lead` na base de dados.
 

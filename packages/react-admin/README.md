@@ -1,5 +1,8 @@
 # slendie/react-admin
 
+> Repositório **espelho só de leitura**, gerado a partir de [`slendie/monorepo`](https://github.com/slendie/monorepo) (pasta `packages/react-admin/`).
+> Issues e pull requests: no monorepo.
+
 Painel interno em **React 19 + TypeScript + Tailwind 4** para a [Slendie](https://slendie.lcloss.dev): lista de leads com pesquisa,
 filtro por estado e paginação, detalhe com mudança de estado e notas, dashboard. Autenticado com `slendie/auth` (sessão + CSRF),
 sem SEO, por desenho. Requer Node 20+ e o skeleton (usa `App\Models\Lead`).

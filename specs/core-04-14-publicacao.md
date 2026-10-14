@@ -81,4 +81,9 @@ Numa pasta temporária, fora do monorepo e sem `path` repositories:
 - Fora de âmbito (peça 15): site de documentação.
 
 ## Desvios
-(preencher na implementação)
+- `framework/` não tinha `README.md`: criado um curto com o aviso de espelho.
+- `support.issues` aponta para `slendie/monorepo` em todos os packages (inclui a framework, que apontava para o seu espelho);
+  `support.source` aponta para o espelho respectivo.
+- Template de issue: `config.yml` (sem issues em branco) e `bug_report.md` em `.github/ISSUE_TEMPLATE/`.
+- `.gitattributes` não precisou de alteração.
+- A secção `[4.0.0]` do `CHANGELOG.md` usa a data de 2026-10-14; rever no dia da tag.

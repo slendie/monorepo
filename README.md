@@ -12,6 +12,20 @@ de leads e sites simples renderizados em PHP. Este repositório contém tudo o q
 | `docs/` | — | Documentação para utilizadores |
 | `specs/` | — | Análise, arquitectura, backlog e especificações de implementação |
 
+## Instalação
+
+```bash
+composer create-project slendie/slendie meu-site
+cd meu-site && php slendie serve
+
+# opcionais
+composer require slendie/auth && php slendie auth:install && php slendie migrate
+composer require slendie/react-admin && php slendie react-admin:install
+```
+
+Os repositórios `slendie/framework`, `slendie/slendie`, `slendie/auth` e `slendie/react-admin` são **espelhos só de leitura**
+gerados deste monorepo: issues e pull requests abrem-se aqui.
+
 ## Começar a desenvolver
 
 ```bash

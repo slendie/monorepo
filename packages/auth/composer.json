@@ -4,9 +4,14 @@
     "type": "library",
     "license": "MIT",
     "keywords": ["slendie", "auth", "authentication", "login", "tokens"],
+    "homepage": "https://slendie.lcloss.dev",
     "authors": [
         { "name": "Luciano Closs", "email": "lcloss@gmail.com" }
     ],
+    "support": {
+        "issues": "https://github.com/slendie/monorepo/issues",
+        "source": "https://github.com/slendie/auth"
+    },
     "require": {
         "php": "^8.5",
         "slendie/framework": "^4.0"

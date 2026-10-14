@@ -5,7 +5,12 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-10-14
+
 ### Added
+- Peça 14 — publicação: workflow `.github/workflows/split.yml` (`git subtree split` para os espelhos `framework`, `slendie`, `auth` e
+  `react-admin`; tags `v4.*` propagadas), metadados Packagist (`support`, `homepage`, `branch-alias` em todos os packages), avisos de
+  repositório espelho só de leitura e template de issues.
 - Análise crítica, arquitectura, backlog e 13 especificações de implementação em `specs/`.
 - Documentação completa da API planeada em `docs/`.
 - Peça 01 — basement: monorepo, `Container` com autowiring, `Application`, `Env`, `Config`, `Arr`, `Str`,

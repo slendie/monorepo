@@ -1,5 +1,8 @@
 # slendie/auth
 
+> Repositório **espelho só de leitura**, gerado a partir de [`slendie/monorepo`](https://github.com/slendie/monorepo) (pasta `packages/auth/`).
+> Issues e pull requests: no monorepo.
+
 Autenticação para a [Slendie](https://slendie.lcloss.dev): login por sessão com *remember me*, tokens de API com abilities,
 middlewares `auth` / `guest` / `ability`, directivas `@auth` / `@guest` e comandos de instalação.
 
