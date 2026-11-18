@@ -15,8 +15,8 @@
 | 06 | Schema + Migrations + Seeders: Schema facade, Blueprint, DDL grammars, Migration, Migrator (batches, rollback real), Seeder | `core-04-06-schema-migrations.md` | `up()/down()` reais nos 3 drivers; repositório `migrations` | 04 | ✅ 2026-10-12 (775 testes, 90 skipped sem MySQL/PostgreSQL; PHPStan 8, Pint) |
 | 07 | Console: Application, Command, Input/Output, comandos `serve`, `migrate*`, `db:seed`, `make:*`, `route:list`, `view:clear`, `key:generate`, `vendor:publish`; stubs | `core-04-07-console.md` | `php slendie <cmd>` funcional, comandos registáveis por providers | 01–06 | ✅ 2026-10-12 (936 testes, 90 skipped sem MySQL/PostgreSQL; PHPStan 8, Pint) |
 | 08 | Validation + flash: Validator, regras, MessageBag, `$request->validate()`, `old()`, `@error`, redirect back com erros | `core-04-08-validation.md` | formulário de contacto valida e re-popula | 02, 03 | ✅ 2026-10-12 (1189 testes, 90 skipped sem MySQL/PostgreSQL; PHPStan 8, Pint) |
-| 09 | Packages & assets: PackageDiscovery, `publishes`, `loadRoutesFrom/ViewsFrom/MigrationsFrom`, Vite helper + `@vite`, Logger, `ai:context` | `core-04-09-packages-vite.md` | package externo regista rotas/views/migrações/directivas/comandos só com `extra.slendie.providers` | 01–07 | ⬜ |
-| 10 | Testing: TestCase, TestResponse, RefreshDatabase, asserts; cobertura ≥ 80% do core | `core-04-10-testing.md` | `$this->get('/')->assertOk()` em projectos criados a partir do skeleton | 01–09 | ⬜ |
+| 09 | Packages & assets: PackageDiscovery, `publishes`, `loadRoutesFrom/ViewsFrom/MigrationsFrom`, Vite helper + `@vite`, Logger, `ai:context` | `core-04-09-packages-vite.md` | package externo regista rotas/views/migrações/directivas/comandos só com `extra.slendie.providers` | 01–07 | ✅ 2026-10-13 (commit `572872a`, PR #18; package fictício `acme-blog` ponta a ponta; PHPStan 8, Pint) |
+| 10 | Testing: TestCase, TestResponse, RefreshDatabase, asserts; cobertura ≥ 80% do core | `core-04-10-testing.md` | `$this->get('/')->assertOk()` em projectos criados a partir do skeleton | 01–09 | ✅ 2026-10-13 (commit `32de9fa`, PR #19; 45 skipped sem MySQL/PostgreSQL; PHPStan 8, Pint) |
 
 ## Fase 2 — Skeleton e packages
 
@@ -30,7 +30,7 @@
 
 | # | Peça | Entrega | Estado |
 |---|---|---|---|
-| 14 | (spec: `core-04-14-publicacao.md`) Split do monorepo em 4 repositórios GitHub, submissão ao Packagist, webhooks, tags `v4.0.0` | `composer create-project slendie/slendie` funciona a partir do Packagist | 🟨 workflow de split feito; passos manuais por fazer |
+| 14 | (spec: `core-04-14-publicacao.md`) Split do monorepo em 4 repositórios GitHub, submissão ao Packagist, webhooks, tags `v4.0.0` | `composer create-project slendie/slendie` funciona a partir do Packagist | 🟨 Parte A (workflow de split) e Parte C (ajustes no repositório, `f1b0130`) feitas; Partes B (passos manuais) e D (verificação) por fazer |
 | 15 | Site de documentação a partir de `docs/` (slendie.lcloss.dev) | docs online | ⬜ |
 
 ## Regras para quem implementa uma peça
