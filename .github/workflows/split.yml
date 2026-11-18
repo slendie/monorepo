@@ -36,6 +36,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # Sem isto o checkout grava o GITHUB_TOKEN num http.extraheader que se sobrepõe ao
+          # SPLIT_TOKEN do URL do remote, e o push sai como github-actions[bot] (403).
+          persist-credentials: false
 
       - name: Split de ${{ matrix.package.prefix }}
         id: split
