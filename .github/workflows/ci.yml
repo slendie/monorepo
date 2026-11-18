@@ -53,8 +53,8 @@ jobs:
         env:
           DB_TEST_MYSQL_DSN: ${{ matrix.db == 'mysql' && 'mysql:host=127.0.0.1;port=3306;dbname=slendie_test' || '' }}
           DB_TEST_MYSQL_USER: root
-          DB_TEST_MYSQL_PASS: root
+          DB_TEST_MYSQL_PASSWORD: root
           DB_TEST_PGSQL_DSN: ${{ matrix.db == 'pgsql' && 'pgsql:host=127.0.0.1;port=5432;dbname=slendie_test' || '' }}
           DB_TEST_PGSQL_USER: postgres
-          DB_TEST_PGSQL_PASS: postgres
+          DB_TEST_PGSQL_PASSWORD: postgres
         run: composer ${{ matrix.db == 'sqlite' && 'test:coverage' || 'test' }} -- --colors=always
