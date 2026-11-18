@@ -67,6 +67,9 @@ Todos os valores vão por *prepared statements*. Nomes de tabelas/colunas são v
 ->limit(10)->offset(20)  ->take(10)->skip(20)  ->forPage(3, 20)
 ```
 
+> **PostgreSQL:** `having()` sobre um alias do `SELECT` (ex.: `selectRaw('count(*) as total')` + `having('total', ...)`)
+> só funciona em MySQL e SQLite. Para código portável, repete a agregação: `havingRaw('count(*) > ?', [5])`.
+
 `update()`/`delete()` não aceitam joins; usa `whereIn()`/`whereExists()`. `chunk()` pagina por offset: não alteres durante o chunk as colunas usadas no `where`.
 
 ## Escrever
