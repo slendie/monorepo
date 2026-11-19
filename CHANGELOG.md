@@ -5,7 +5,7 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
-## [4.0.0] - 2026-10-14
+## [4.0.0] - 2026-11-19
 
 ### Added
 - Peça 14 — publicação: workflow `.github/workflows/split.yml` (`git subtree split` para os espelhos `framework`, `slendie`, `auth` e
