@@ -82,8 +82,10 @@ url('/path');  url('a', [1, 2]);  asset('css/app.css');
 url()->current();  url()->full();  url()->previous('/fallback');
 ```
 
-Parâmetro obrigatório em falta ou nome inexistente → `UrlGenerationException`. A base é `config('app.url')`; sem ela
-usa o host do pedido. Objectos com `getRouteKey()` são aceites como valor de parâmetro.
+Parâmetro obrigatório em falta ou nome inexistente → `UrlGenerationException`. A base é o host do pedido
+(o site funciona em qualquer virtual host sem mexer no `.env`). Se o host do pedido for o mesmo de `config('app.url')`,
+usa-se `app.url`, o que mantém o `https` e o caminho atrás de um proxy que termina o TLS. Fora de um pedido (consola,
+filas) usa-se sempre `app.url`. Objectos com `getRouteKey()` são aceites como valor de parâmetro.
 
 Em Blade: `<a href="{{ route('home') }}">`.
 

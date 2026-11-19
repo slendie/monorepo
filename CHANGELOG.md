@@ -5,6 +5,11 @@ versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### Fixed
+- `url()`, `route()` e `asset()` usam o host do pedido quando difere do `APP_URL`: um projecto criado com
+  `create-project` e servido por um virtual host (ex.: `http://site.test`) deixa de gerar o CSS/JS em
+  `http://localhost:8000`. Com o mesmo host, o `APP_URL` mantém-se (https atrás de proxy); na consola usa-se o `APP_URL`.
+
 ## [4.0.0] - 2026-11-19
 
 ### Added
